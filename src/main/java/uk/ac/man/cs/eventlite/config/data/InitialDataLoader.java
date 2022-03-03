@@ -39,12 +39,13 @@ public class InitialDataLoader {
 			if (eventService.count() > 0) {
 				log.info("Database already populated with events. Skipping event initialization.");
 			} else {
-//				Event showcase = new Event();
-//				showcase.setId(1);
-//				showcase.setName("COMP23412 showcase G18");
-//				showcase.setTime(LocalTime.of(15, 00));
-//				showcase.setDate(LocalDate.of(2022, 3, 4));
-//				eventService.saveEvent(showcase);
+				Event showcase = new Event();
+				showcase.setId(1);
+				showcase.setName("COMP23412 showcase G18");
+				showcase.setTime(LocalTime.of(15, 00));
+				showcase.setDate(LocalDate.of(2022, 3, 4));
+				showcase.setVenue(1);
+				eventService.saveEvent(showcase);
 			}
 		};
 	}
