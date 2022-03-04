@@ -1,7 +1,12 @@
 package uk.ac.man.cs.eventlite.entities;
 
-public class Venue {
+import javax.persistence.*;
 
+@Entity
+@Table(name = "venues")
+public class Venue {
+	
+	@Id
 	private long id;
 
 	private String name;
