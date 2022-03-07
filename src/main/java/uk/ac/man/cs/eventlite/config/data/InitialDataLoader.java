@@ -3,6 +3,7 @@ package uk.ac.man.cs.eventlite.config.data;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,16 +41,17 @@ public class InitialDataLoader {
 				kilburn.setName("Kilburn");
 				venueService.saveVenue(kilburn);
 			}
-
+			
 			if (eventService.count() > 0) {
 				log.info("Database already populated with events. Skipping event initialization.");
 			} else {
+				
 				Event showcase = new Event();
 				showcase.setId(1);
 				showcase.setName("COMP23412 showcase G18");
 				showcase.setTime(LocalTime.of(15, 00));
 				showcase.setDate(LocalDate.of(2022, 3, 4));
-				showcase.setVenue(1);
+				showcase.setVenue(venueService.findAll().iterator().next());
 				eventService.saveEvent(showcase);
 			}
 		};

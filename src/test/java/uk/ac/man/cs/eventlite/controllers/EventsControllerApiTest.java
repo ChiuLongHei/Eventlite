@@ -16,6 +16,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -28,12 +29,16 @@ import uk.ac.man.cs.eventlite.assemblers.EventModelAssembler;
 import uk.ac.man.cs.eventlite.config.Security;
 import uk.ac.man.cs.eventlite.dao.EventService;
 import uk.ac.man.cs.eventlite.entities.Event;
+import uk.ac.man.cs.eventlite.entities.Venue;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(EventsControllerApi.class)
 @Import({ Security.class, EventModelAssembler.class })
 public class EventsControllerApiTest {
-
+	
+	@Mock
+	private Venue venue;
+	
 	@Autowired
 	private MockMvc mvc;
 
@@ -58,7 +63,7 @@ public class EventsControllerApiTest {
 		e.setName("Event");
 		e.setDate(LocalDate.now());
 		e.setTime(LocalTime.now());
-		e.setVenue(0);
+		e.setVenue(venue);
 		when(eventService.findAll()).thenReturn(Collections.<Event>singletonList(e));
 
 		mvc.perform(get("/api/events").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())

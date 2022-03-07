@@ -1,5 +1,6 @@
 package uk.ac.man.cs.eventlite.entities;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -15,7 +16,7 @@ public class Venue {
 
 	public Venue() {
 	}
-
+	
 	public long getId() {
 		return id;
 	}
