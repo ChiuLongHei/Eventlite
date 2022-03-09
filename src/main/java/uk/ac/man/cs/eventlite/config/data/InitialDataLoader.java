@@ -45,13 +45,17 @@ public class InitialDataLoader {
 			if (eventService.count() > 0) {
 				log.info("Database already populated with events. Skipping event initialization.");
 			} else {
-				
+				Venue mecd = new Venue();
+				mecd.setCapacity(50);
+				mecd.setId(1);
+				mecd.setName("MECD");
+				venueService.saveVenue(mecd);
 				Event showcase = new Event();
 				showcase.setId(1);
 				showcase.setName("COMP23412 showcase G18");
 				showcase.setTime(LocalTime.of(15, 00));
 				showcase.setDate(LocalDate.of(2022, 3, 4));
-				showcase.setVenue(venueService.findAll().iterator().next());
+				showcase.setVenue(mecd);
 				eventService.saveEvent(showcase);
 			}
 		};

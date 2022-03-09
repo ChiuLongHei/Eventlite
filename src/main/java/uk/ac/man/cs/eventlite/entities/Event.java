@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Event {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -26,14 +27,11 @@ public class Event {
 
 	private String name;
 	
-	//private long venue;
-	
 	
 	public Event() {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name="VENUE_ID")
 	private Venue venue;
 
 	public long getId() {
