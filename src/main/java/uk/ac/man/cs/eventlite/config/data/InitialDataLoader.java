@@ -52,6 +52,23 @@ public class InitialDataLoader {
 				showcase.setVenue(1);
 				eventService.saveEvent(showcase);
 			}
+			
+			Event meeting = new Event();
+			meeting.setId(2);
+			meeting.setName("COMP23412 meeting");
+			meeting.setTime(LocalTime.of(16, 00));
+			meeting.setDate(LocalDate.of(2022, 3, 2));
+			meeting.setVenue(1);
+			eventService.saveEvent(meeting);
+
+			Event meeting2 = new Event();
+			meeting2.setId(3);
+			meeting2.setName("COMP23111 meeting");
+			meeting2.setTime(LocalTime.of(14, 00));
+			meeting2.setDate(LocalDate.of(2022, 3, 2));
+			meeting2.setVenue(1);
+			eventService.saveEvent(meeting2);
+			
 		};
 	}
 }
