@@ -8,7 +8,10 @@
 <body>
   <div layout:fragment="content">
     <h1>All events</h1>
-
+    <form th:action="@{/events}" method="GET">
+	  <input type="text" name="keyword" th:value="${keyword}"  placeholder="Find by Owner Name & Shop Type" size="50" >
+	  <button type="submit" class="btn btn-primary" >Search</button>
+	</form>
     <table class="table table-striped table-hover">
       <thead>
         <tr>

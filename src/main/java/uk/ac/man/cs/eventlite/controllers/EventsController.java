@@ -1,17 +1,24 @@
 package uk.ac.man.cs.eventlite.controllers;
 
+
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import uk.ac.man.cs.eventlite.dao.EventService;
+import uk.ac.man.cs.eventlite.entities.Event;
 //import uk.ac.man.cs.eventlite.dao.VenueService;
 import uk.ac.man.cs.eventlite.exceptions.EventNotFoundException;
 
@@ -46,5 +53,13 @@ public class EventsController {
 
 		return "events/index";
 	}
+	
 
+	@GetMapping("/events")
+	public ResponseEntity search(@RequestParam Map <String, String>  requestParams){
+		int params = requestParams.size();
+		String newSearchTerm = requestParams.get("keyword");
+		System.out.println(newSearchTerm);
+		return new ResponseEntity(HttpStatus.OK);
+	}	 
 }

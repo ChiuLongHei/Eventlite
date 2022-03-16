@@ -42,4 +42,9 @@ public class EventServiceImpl implements EventService {
     public Event saveEvent(Event event) {
         return eventRepository.save(event);
     }
+	
+	@Override
+	public Iterable<Event> getByKeyword(String keyword){
+		return eventRepository.findByKeyword(keyword);
+	}
 }
