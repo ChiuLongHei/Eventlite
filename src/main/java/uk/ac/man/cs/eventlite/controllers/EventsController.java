@@ -1,5 +1,9 @@
 package uk.ac.man.cs.eventlite.controllers;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,7 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import uk.ac.man.cs.eventlite.dao.EventRepository;
 import uk.ac.man.cs.eventlite.dao.EventService;
+import uk.ac.man.cs.eventlite.entities.Event;
+import uk.ac.man.cs.eventlite.entities.Venue;
 //import uk.ac.man.cs.eventlite.dao.VenueService;
 import uk.ac.man.cs.eventlite.exceptions.EventNotFoundException;
 
@@ -21,6 +28,9 @@ public class EventsController {
 
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	EventRepository repo;
 
 //	@Autowired
 //	private VenueService venueService;
@@ -45,6 +55,46 @@ public class EventsController {
 //		model.addAttribute("venues", venueService.findAll());
 
 		return "events/index";
+	}
+	
+	@GetMapping
+	public Event updateEventName(@PathVariable("id") long id, String name) {
+		Optional<Event> optionalEvent = repo.findById(id);
+		Event event = optionalEvent.get();
+		event.setName(name);
+		repo.save(event);
+		return event;
+		
+	}
+	
+	@GetMapping
+	public Event updateEventVenue(@PathVariable("id") long id, Venue venue) {
+		Optional<Event> optionalEvent = repo.findById(id);
+		Event event = optionalEvent.get();
+		event.setVenue(venue);
+		repo.save(event);
+		return event;
+		
+	}
+	
+	@GetMapping
+	public Event updateEventTime(@PathVariable("id") long id, LocalTime time) {
+		Optional<Event> optionalEvent = repo.findById(id);
+		Event event = optionalEvent.get();
+		event.setTime(time);
+		repo.save(event);
+		return event;
+		
+	}
+	
+	@GetMapping
+	public Event updateEventDate(@PathVariable("id") long id, LocalDate date) {
+		Optional<Event> optionalEvent = repo.findById(id);
+		Event event = optionalEvent.get();
+		event.setDate(date);
+		repo.save(event);
+		return event;
+		
 	}
 
 }

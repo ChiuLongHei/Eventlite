@@ -1,9 +1,12 @@
 package uk.ac.man.cs.eventlite.dao;
 
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import uk.ac.man.cs.eventlite.entities.Event;
+import uk.ac.man.cs.eventlite.entities.Venue;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -26,6 +30,7 @@ public class EventServiceImpl implements EventService {
 	private final static Logger log = LoggerFactory.getLogger(EventServiceImpl.class);
 
 	private final static String DATA = "data/events.json";
+	
 
 	@Override
 	public long count() {
@@ -42,4 +47,52 @@ public class EventServiceImpl implements EventService {
     public Event saveEvent(Event event) {
         return eventRepository.save(event);
     }
+	@Override
+	public Event updateEventName(long id, String name) {
+		Optional<Event> optionalEvent = eventRepository.findById(id);
+		Event event = optionalEvent.get();
+		event.setName(name);
+		eventRepository.save(event);
+		return event;
+		
+	}
+	@Override
+	public Event updateEventDate(long id, LocalDate date) {
+		Optional<Event> optionalEvent = eventRepository.findById(id);
+		Event event = optionalEvent.get();
+		event.setDate(date);
+		eventRepository.save(event);
+		return event;
+		
+	}
+	@Override
+	public Event updateEventTime(long id, LocalTime time) {
+		Optional<Event> optionalEvent = eventRepository.findById(id);
+		Event event = optionalEvent.get();
+		event.setTime(time);
+		eventRepository.save(event);
+		return event;
+		
+	}
+	@Override
+	public Event updateEventVenue(long id, Venue venue) {
+		Optional<Event> optionalEvent = eventRepository.findById(id);
+		Event event = optionalEvent.get();
+		event.setVenue(venue);
+		eventRepository.save(event);
+		return event;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 }
+
+
+
+
+

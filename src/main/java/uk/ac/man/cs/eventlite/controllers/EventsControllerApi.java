@@ -3,6 +3,10 @@ package uk.ac.man.cs.eventlite.controllers;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -13,12 +17,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import uk.ac.man.cs.eventlite.assemblers.EventModelAssembler;
+import uk.ac.man.cs.eventlite.dao.EventRepository;
 import uk.ac.man.cs.eventlite.dao.EventService;
 import uk.ac.man.cs.eventlite.entities.Event;
+import uk.ac.man.cs.eventlite.entities.Venue;
 import uk.ac.man.cs.eventlite.exceptions.EventNotFoundException;
 
 @RestController
@@ -32,6 +41,9 @@ public class EventsControllerApi {
 
 	@Autowired
 	private EventModelAssembler eventAssembler;
+	
+	@Autowired
+	EventRepository repo;
 
 	@ExceptionHandler(EventNotFoundException.class)
 	public ResponseEntity<?> eventNotFoundHandler(EventNotFoundException ex) {
@@ -43,6 +55,30 @@ public class EventsControllerApi {
 	public EntityModel<Event> getEvent(@PathVariable("id") long id) {
 		throw new EventNotFoundException(id);
 	}
+	
+	@PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> updateEventName(@PathVariable(value = "id") long id, @RequestBody String name){
+        return new ResponseEntity<>(eventService.updateEventName(id, name), HttpStatus.OK);
+    }
+	
+	@PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> updateEventDate(@PathVariable(value = "id") long id, @RequestBody LocalDate date){
+        return new ResponseEntity<>(eventService.updateEventDate(id, date), HttpStatus.OK);
+    }
+	
+	@PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> updateEventTime(@PathVariable(value = "id") long id, @RequestBody LocalTime time){
+        return new ResponseEntity<>(eventService.updateEventTime(id, time), HttpStatus.OK);
+    }
+	
+	@PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> updateEventVenue(@PathVariable(value = "id") long id, @RequestBody Venue venue){
+        return new ResponseEntity<>(eventService.updateEventVenue(id, venue), HttpStatus.OK);
+    }
 
 	@GetMapping
 	public CollectionModel<EntityModel<Event>> getAllEvents() {
