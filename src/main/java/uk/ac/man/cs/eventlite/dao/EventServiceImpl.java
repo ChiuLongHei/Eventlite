@@ -42,4 +42,19 @@ public class EventServiceImpl implements EventService {
     public Event saveEvent(Event event) {
         return eventRepository.save(event);
     }
+
+	public void delete(Event event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void deleteById(long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean existsById(long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
