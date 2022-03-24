@@ -49,12 +49,13 @@ public class EventServiceImpl implements EventService {
 	}
 
 	public void deleteById(long id) {
+		eventRepository.deleteById(id);
 		// TODO Auto-generated method stub
 		
 	}
 
 	public boolean existsById(long id) {
 		// TODO Auto-generated method stub
-		return false;
+		return eventRepository.existsById(id);
 	}
 }
