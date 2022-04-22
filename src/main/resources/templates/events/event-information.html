@@ -7,14 +7,12 @@
 </head>
 <body>
   <div layout:fragment="content">
-  	<h1 th:text="${event.name}"></h1>
   	<dl>
-  		<dt>Date of the event: </dt>
-  			<dd th:text="${event.date}"> </dd>
-  		<dt> Time of the event: </dt>
-  			<dd th:text="${event.time}"> </dd>
-  		<dt> Location of the event: </dt>
-			<dd th:text="${event.venue.name}"> </dd>
+  		<dd th:text="'Event ' + ${event.name}">Event name</dd>
+  		<dd th:text="${event.date}">Event date</dd>
+  		<dd th:text="${event.time}">Event time</dd>
+		<dd th:text="'Venue ' + ${event.venue.name}">Event venue name</dd>
+		<dd th:text="${event.description}"</dd>
     </dl>
     <p>Get back to the <a href = "/events">list of events</a> page.</p>
   </div>
