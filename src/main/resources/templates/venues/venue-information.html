@@ -8,8 +8,14 @@
 <body>
   <div layout:fragment="content">
   	<dl>
-  		<dd th:text="'Venue ' + ${venue.name}">Event name</dd>
+  		<dd th:text="'Venue ' + ${venue.name}">Venue name</dd>
+  		<dd th:text="${venue.address}">Venue address</dd>
+  		<dd th:text="${venue.postalCode}">Venue postal code</dd>
+  		<dd th:text="'Capacity: ' + ${venue.capacity}">Venue capacity</dd>
+  		<p></p>
+  		<dd>Events coming up...</dd>
     </dl>
+    <p></p>
     <p>Get back to the <a href = "/events">list of events</a> page.</p>
   </div>
 
