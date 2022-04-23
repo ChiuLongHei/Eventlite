@@ -78,6 +78,13 @@ public class InitialDataLoader {
 				showcase.setDate(LocalDate.of(2022, 3, 4));
 				showcase.setVenue(mecd);
 				eventService.saveEvent(showcase);
+				Event groupProject = new Event();
+				groupProject.setId(2);
+				groupProject.setName("Group meeting");
+				groupProject.setTime(LocalTime.of(15, 00));
+				groupProject.setDate(LocalDate.of(2022, 3, 4));
+				groupProject.setVenue(mecd);
+				eventService.saveEvent(groupProject);
 			}
 		};
 	}

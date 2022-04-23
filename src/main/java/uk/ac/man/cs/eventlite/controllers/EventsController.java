@@ -1,6 +1,7 @@
 package uk.ac.man.cs.eventlite.controllers;
 
 import java.time.*;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,4 +50,11 @@ public class EventsController {
 		return "events/index";
 	}
 
+	@GetMapping("/events")
+	public String search(Model model, String keyword){
+		LocalDate date = LocalDate.now( ZoneId.of( "Europe/Paris" ) ) ;
+		model.addAttribute("upcommingEvents", eventService.searchAfter(date, keyword));
+		model.addAttribute("previousEvents", eventService.searchBefore(date, keyword));
+		return "events/index";
+	}
 }

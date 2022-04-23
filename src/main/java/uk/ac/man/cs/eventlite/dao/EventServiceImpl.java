@@ -44,6 +44,16 @@ public class EventServiceImpl implements EventService {
         return eventRepository.save(event);
     }
 	
+	@Override
+	public Iterable<Event> searchAfter(LocalDate date, String keyword){
+		return eventRepository.findAllByDateAfterAndNameContainingOrderByDateAscNameAsc(date, keyword);	
+	}
+	
+	@Override
+	public Iterable<Event> searchBefore(LocalDate date, String keyword){
+		return eventRepository.findAllByDateBeforeAndNameContainingOrderByDateAscNameAsc(date, keyword);	
+	}
+	
 	public Iterable<Event> findAllByDateAfter(LocalDate date){
 		return eventRepository.findAllByDateAfter(date);
 	}
