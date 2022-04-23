@@ -56,10 +56,9 @@ public class EventsController {
 	
 
 	@GetMapping("/events")
-	public ResponseEntity search(@RequestParam Map <String, String>  requestParams){
-		int params = requestParams.size();
-		String newSearchTerm = requestParams.get("keyword");
-		System.out.println(newSearchTerm);
-		return new ResponseEntity(HttpStatus.OK);
+	public String search(Model model, String keyword){
+		model.addAttribute("events", eventService.search(keyword));
+		
+		return "events/index";
 	}	 
 }

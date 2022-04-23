@@ -10,6 +10,5 @@ import uk.ac.man.cs.eventlite.entities.Event;
 public interface EventRepository extends CrudRepository<Event, Long>{
 	public Iterable<Event> findAll(Sort sort);
 	
-	@Query(value = "select * from events s where s.name like %:keyword", nativeQuery = true)
-	 Iterable<Event> findByKeyword(@Param("keyword") String keyword);
+	public Iterable<Event> findAllByNameContainingOrderByDateAscNameAsc(String keyword);
 }
