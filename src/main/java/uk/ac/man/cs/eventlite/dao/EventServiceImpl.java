@@ -1,6 +1,7 @@
 package uk.ac.man.cs.eventlite.dao;
 
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Iterator;
 import java.util.List;
@@ -44,7 +45,20 @@ public class EventServiceImpl implements EventService {
     }
 	
 	@Override
-	public Iterable<Event> search(String keyword){
-		return eventRepository.findAllByNameContainingOrderByDateAscNameAsc(keyword);
+	public Iterable<Event> searchAfter(LocalDate date, String keyword){
+		return eventRepository.findAllByDateAfterAndNameContainingOrderByDateAscNameAsc(date, keyword);	
+	}
+	
+	@Override
+	public Iterable<Event> searchBefore(LocalDate date, String keyword){
+		return eventRepository.findAllByDateBeforeAndNameContainingOrderByDateAscNameAsc(date, keyword);	
+	}
+	
+	public Iterable<Event> findAllByDateAfter(LocalDate date){
+		return eventRepository.findAllByDateAfter(date);
+	}
+	
+	public Iterable<Event> findAllByDateBefore(LocalDate date){
+		return eventRepository.findAllByDateBefore(date);
 	}
 }

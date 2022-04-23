@@ -1,6 +1,7 @@
 package uk.ac.man.cs.eventlite.controllers;
 
 
+import java.time.*;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,9 @@ public class EventsController {
 
 	@GetMapping
 	public String getAllEvents(Model model) {
-
-		model.addAttribute("events", eventService.findAll());
-//		model.addAttribute("venues", venueService.findAll());
+		LocalDate date = LocalDate.now( ZoneId.of( "Europe/Paris" ) ) ;
+		model.addAttribute("upcommingEvents", eventService.findAllByDateAfter(date));
+		model.addAttribute("previousEvents", eventService.findAllByDateBefore(date));
 
 		return "events/index";
 	}
@@ -57,8 +58,9 @@ public class EventsController {
 
 	@GetMapping("/events")
 	public String search(Model model, String keyword){
-		model.addAttribute("events", eventService.search(keyword));
-		
+		LocalDate date = LocalDate.now( ZoneId.of( "Europe/Paris" ) ) ;
+		model.addAttribute("upcommingEvents", eventService.searchAfter(date, keyword));
+		model.addAttribute("previousEvents", eventService.searchBefore(date, keyword));
 		return "events/index";
 	}	 
 }
