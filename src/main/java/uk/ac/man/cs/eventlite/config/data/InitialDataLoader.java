@@ -57,6 +57,27 @@ public class InitialDataLoader {
 				showcase.setDate(LocalDate.of(2022, 3, 4));
 				showcase.setVenue(mecd);
 				eventService.saveEvent(showcase);
+				Event event1 = new Event();
+				showcase.setId(3);
+				showcase.setName("Event Alpha");
+				showcase.setTime(LocalTime.of(15, 00));
+				showcase.setDate(LocalDate.of(2022, 6, 4));
+				showcase.setVenue(mecd);
+				eventService.saveEvent(showcase);
+				Event event2 = new Event();
+				showcase.setId(4);
+				showcase.setName("Event Beta");
+				showcase.setTime(LocalTime.of(15, 00));
+				showcase.setDate(LocalDate.of(2022, 6, 4));
+				showcase.setVenue(mecd);
+				eventService.saveEvent(showcase);
+				Event event3 = new Event();
+				showcase.setId(5);
+				showcase.setName("Event Alpha");
+				showcase.setTime(LocalTime.of(15, 00));
+				showcase.setDate(LocalDate.of(2022, 3, 4));
+				showcase.setVenue(mecd);
+				eventService.saveEvent(showcase);
 			}
 		};
 	}

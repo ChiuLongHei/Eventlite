@@ -1,6 +1,7 @@
 package uk.ac.man.cs.eventlite.dao;
 
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -42,4 +43,12 @@ public class EventServiceImpl implements EventService {
     public Event saveEvent(Event event) {
         return eventRepository.save(event);
     }
+	
+	public Iterable<Event> findAllByDateAfter(LocalDate date){
+		return eventRepository.findAllByDateAfter(date);
+	}
+	
+	public Iterable<Event> findAllByDateBefore(LocalDate date){
+		return eventRepository.findAllByDateBefore(date);
+	}
 }

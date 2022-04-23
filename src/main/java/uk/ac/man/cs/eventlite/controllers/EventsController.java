@@ -1,5 +1,7 @@
 package uk.ac.man.cs.eventlite.controllers;
 
+import java.time.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -37,12 +39,12 @@ public class EventsController {
 	public String getEvent(@PathVariable("id") long id, Model model) {
 		throw new EventNotFoundException(id);
 	}
-
+	
 	@GetMapping
 	public String getAllEvents(Model model) {
-
-		model.addAttribute("events", eventService.findAll());
-//		model.addAttribute("venues", venueService.findAll());
+		LocalDate date = LocalDate.now( ZoneId.of( "Europe/London" ) ) ;
+		model.addAttribute("upcommingEvents", eventService.findAllByDateAfter(date));
+		model.addAttribute("previousEvents", eventService.findAllByDateBefore(date));
 
 		return "events/index";
 	}
