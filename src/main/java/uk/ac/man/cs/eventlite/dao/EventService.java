@@ -9,4 +9,8 @@ public interface EventService {
 	public Iterable<Event> findAll();
 	
 	public Event saveEvent(Event event);
+	
+	public boolean existsById(long id);
+
+    public Event update(Event event);
 }

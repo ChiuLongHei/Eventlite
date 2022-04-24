@@ -1,4 +1,7 @@
 <!DOCTYPE HTML>
+
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default}">
@@ -24,7 +27,48 @@
           <td th:text="${e.venue.name}">Event venue</td>
           <td th:text="${{e.date}}">Event date</td>
           <td th:text="${{e.time}}">Event time</td>
+          <s:form method="post" commandName="event"
+		action="${pageContext.request.contextPath }/events/save">
+		<table>
+			<tr>
+				<td>Id</td>
+				<td>
+					<s:input path="id"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td>
+					<s:input path="name"/>
+				</td>
+			</tr>
+			<tr>
+				<td>venue</td>
+				<td>
+					<s:input path="venue.name"/>
+				</td>
+			</tr>
+			<tr>
+				<td>date</td>
+				<td>
+					<s:input path="date"/>
+				</td>
+			</tr>
+			<tr>
+				<td>time</td>
+				<td>
+					<s:input path="time"/>
+				</td>
+			</tr>
+				<td>&nbsp;</td>
+				<td>
+					<input type="submit" value="Save"/>
+				</td>
+			</tr>
+		</table>
+	</s:form>
         </tr>
+        
       </tbody>
     </table>
 
