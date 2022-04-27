@@ -3,6 +3,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default}">
 <head>
+
+
   <title>All events</title>
 </head>
 <body>
@@ -25,10 +27,17 @@
           <td th:text="${{e.date}}">Event date</td>
           <td th:text="${{e.time}}">Event time</td>
         </tr>
+        
+        <tp>Click <a th:href="@{events/event_create}">here</a> to add an event.</tp>
+        
+        
+        
       </tbody>
     </table>
 
   </div>
 
+
+	
 </body>
 </html>

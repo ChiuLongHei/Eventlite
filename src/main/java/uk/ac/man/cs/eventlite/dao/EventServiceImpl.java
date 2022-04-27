@@ -42,4 +42,9 @@ public class EventServiceImpl implements EventService {
     public Event saveEvent(Event event) {
         return eventRepository.save(event);
     }
+	
+	public void deleteAll() {
+		eventRepository.deleteAll();
+		
+	}
 }
