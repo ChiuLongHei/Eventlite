@@ -27,6 +27,24 @@
         </tr>
       </tbody>
     </table>
+    
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th><i class="fas fa-bolt"></i> Venue</th>
+          <th><i class="fas fa-map-marker-alt"></i> Address</th>
+          <th><i></i> Capacity</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="e : ${events}">
+          <td th:text="${e.venue.name}">My Venue</td>
+          <td th:text="${e.venue.name}">Venue Address</td>
+          <td th:text="${{e.venue.capacity}}">Venue Capacity</td>
+        </tr>
+      </tbody>
+    </table>
 
   </div>
 
