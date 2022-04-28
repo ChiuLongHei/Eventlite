@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import uk.ac.man.cs.eventlite.dao.EventRepository;
 import uk.ac.man.cs.eventlite.dao.EventService;
+import uk.ac.man.cs.eventlite.dao.VenueService;
 import uk.ac.man.cs.eventlite.entities.Event;
 //import uk.ac.man.cs.eventlite.dao.VenueService;
 import uk.ac.man.cs.eventlite.exceptions.EventNotFoundException;
@@ -30,8 +31,8 @@ public class EventsController {
 	@Autowired
 	private EventService eventService;
 
-//	@Autowired
-//	private VenueService venueService;
+	@Autowired
+	private VenueService venueService;
 	
 	/**@Autowired
 	EventRepository repo;**/
@@ -63,11 +64,18 @@ public class EventsController {
 		modelMap.put("event", new Event());
 		return "event/index";
 	}**/
+	@GetMapping(value = "/event_update")
+	public String update(@ModelAttribute Event event, Model model) {
+		model.addAttribute("venues", venueService.findAll());
+		
+		return "events/event_update";
+		
+	}
 
-	@RequestMapping(value = "save", method = RequestMethod.POST)
-	public String save(@ModelAttribute("event") Event event) {
+	@RequestMapping(value = "/event_update", method = RequestMethod.POST)
+	public String update(@ModelAttribute Event event) {
 		eventService.update(event);
-		return "events/index";
+		return "events/event_update";
 	}
 
 }
