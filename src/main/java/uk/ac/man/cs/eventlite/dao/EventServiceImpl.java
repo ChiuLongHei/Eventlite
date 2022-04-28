@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,5 +66,10 @@ public class EventServiceImpl implements EventService {
 	public void deleteAll() {
 		eventRepository.deleteAll();
 		
+	}
+
+	@Override
+	public Optional<Event> findById(long id) {
+		return eventRepository.findById(id);
 	}
 }

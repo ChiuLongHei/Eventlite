@@ -67,6 +67,14 @@ public class Event {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public Venue getVenue() {
 		return venue;
@@ -76,13 +84,7 @@ public class Event {
 		this.venue = venue;
 	}
 	
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	
 	
 	
 	

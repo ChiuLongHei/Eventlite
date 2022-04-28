@@ -11,6 +11,10 @@ public class Venue {
 	private long id;
 
 	private String name;
+	
+	private String address;
+	
+	private String postalCode;
 
 	private int capacity;
 
@@ -31,6 +35,22 @@ public class Venue {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+	
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	public String getPostalCode() {
+		return postalCode;
+	}
+	
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
 	public int getCapacity() {
