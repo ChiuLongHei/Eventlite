@@ -10,4 +10,6 @@ public interface VenueService {
 	
 	public Venue saveVenue(Venue venue);
 	
+	public Venue findById(Long id);
+	
 }

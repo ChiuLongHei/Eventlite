@@ -21,4 +21,5 @@ public interface EventService {
 
 	public Iterable<Event> findAllByDateBefore(LocalDate date);
 	
+	public void deleteAll();
 }

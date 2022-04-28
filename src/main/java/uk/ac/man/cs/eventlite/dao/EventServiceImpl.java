@@ -61,4 +61,9 @@ public class EventServiceImpl implements EventService {
 	public Iterable<Event> findAllByDateBefore(LocalDate date){
 		return eventRepository.findAllByDateBefore(date);
 	}
+	
+	public void deleteAll() {
+		eventRepository.deleteAll();
+		
+	}
 }

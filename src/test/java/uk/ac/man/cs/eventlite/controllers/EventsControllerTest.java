@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import uk.ac.man.cs.eventlite.config.Security;
 import uk.ac.man.cs.eventlite.dao.EventService;
+import uk.ac.man.cs.eventlite.dao.VenueService;
 import uk.ac.man.cs.eventlite.entities.Event;
 import uk.ac.man.cs.eventlite.entities.Venue;
 
@@ -43,6 +44,9 @@ public class EventsControllerTest {
 	@MockBean
 	private EventService eventService;
 
+	@MockBean
+	private VenueService venueService;
+	
 	@Test
 	public void getIndexWhenNoEvents() throws Exception {
 		when(eventService.findAll()).thenReturn(Collections.<Event>emptyList());
