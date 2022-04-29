@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import uk.ac.man.cs.eventlite.dao.EventService;
 import uk.ac.man.cs.eventlite.dao.VenueService;
@@ -60,12 +62,24 @@ public class EventsController {
 	
 	@GetMapping(value = "/event_create")
 	public String createNewEvent(Model model) {
+	
+	model.addAttribute("events", eventService.findAll());
+	model.addAttribute("venues", venueService.findAll());
 
-		model.addAttribute("events", eventService.findAll());
-		model.addAttribute("venues", venueService.findAll());
+	return "events/event_create";
+}
 
-		return "events/event_create";
+	@DeleteMapping("/{id}")
+	public String deleteEvent(@PathVariable("id") long id, RedirectAttributes redirectAttrs) {
+		if (!eventService.existsById(id)) {
+			throw new EventNotFoundException(id);
+		}
+		eventService.deleteById(id);
+		redirectAttrs.addFlashAttribute("ok_message", "Event deleted.");
+		return "events/index";
 	}
+
+		
 	
 	
 	

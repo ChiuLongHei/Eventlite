@@ -26,4 +26,11 @@ public interface EventService {
 	public void deleteAll();
 	
 	public Optional<Event> findById(long id);
+
+	public void delete(Event event);
+
+	public void deleteById(long id);
+
+	public boolean existsById(long id);
+	
 }
