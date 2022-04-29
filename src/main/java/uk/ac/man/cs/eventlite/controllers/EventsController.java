@@ -54,6 +54,7 @@ public class EventsController {
 	@GetMapping
 	public String getAllEvents(Model model) {
 		LocalDate date = LocalDate.now( ZoneId.of( "Europe/London" ) ) ;
+		model.addAttribute("events", eventService.findAll());
 		model.addAttribute("upcommingEvents", eventService.findAllByDateAfter(date));
 		model.addAttribute("previousEvents", eventService.findAllByDateBefore(date));
 
