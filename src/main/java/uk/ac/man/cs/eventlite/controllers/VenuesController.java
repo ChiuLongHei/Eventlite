@@ -7,11 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import uk.ac.man.cs.eventlite.dao.VenueService;
+import uk.ac.man.cs.eventlite.entities.Event;
+import uk.ac.man.cs.eventlite.entities.Venue;
 import uk.ac.man.cs.eventlite.exceptions.VenueNotFoundException;
 
 @Controller
@@ -44,11 +48,37 @@ public class VenuesController {
 	}
 
 	@GetMapping
-	public String getAllEvents(Model model) {
+	public String getAllVenues(Model model) {
 
 		model.addAttribute("venues", venueService.findAll());
 
-		return "events/index";
+		return "venues/index";
+	}
+	
+	
+	@GetMapping(value = "/venue_create")
+	public String createNewEvent(Model model) {
+	
+	model.addAttribute("venues", venueService.findAll());
+
+	return "venues/venue_create";
+}
+	
+	@PostMapping(value = "/venue_create")
+	public String createNewEvent(@ModelAttribute Venue venue,Model model) {
+		
+		
+		
+		//Venue eventVenue = venueService.findById(venue);
+		//event.setVenue(eventVenue);
+		
+		
+		
+		model.addAttribute("venue", venue);
+		venueService.saveVenue(venue);
+		//eventService.deleteAll();
+		
+		return "venues/venue_create";
 	}
 
 }

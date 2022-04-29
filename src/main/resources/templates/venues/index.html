@@ -24,6 +24,8 @@
           <td th:text="${e.venue.name}">Venue Address</td>
           <td th:text="${{e.venue.capacity}}">Venue Capacity</td>
         </tr>
+        
+        <tp>Click <a th:href="@{venues/venue_create}">here</a> to add a venue.</tp>
       </tbody>
     </table>
 
