@@ -48,7 +48,7 @@ public class VenuesController {
 
 		model.addAttribute("venues", venueService.findAll());
 
-		return "events/index";
+		return "venues/index";
 	}
 
 }

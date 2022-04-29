@@ -19,10 +19,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="e : ${events}">
-          <td th:text="${e.venue.name}">My Venue</td>
-          <td th:text="${e.venue.name}">Venue Address</td>
-          <td th:text="${{e.venue.capacity}}">Venue Capacity</td>
+        <tr th:each="v : ${venues}">
+          <td><a th:href="'/venues/' + ${v.id}" th:text="${v.name}">Venue Name</a></td>
+          <td th:text="${v.address}">Venue Address</td>
+          <td th:text="${v.capacity}">Venue Capacity</td>
         </tr>
       </tbody>
     </table>
