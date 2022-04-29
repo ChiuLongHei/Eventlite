@@ -47,7 +47,7 @@ public class VenuesController {
 	}
 
 	@GetMapping
-	public String getAllEvents(Model model) {
+	public String getAllVenues(Model model) {
 
 		model.addAttribute("venues", venueService.findAll());
 
@@ -56,7 +56,7 @@ public class VenuesController {
 	
 	
 	@GetMapping(value = "/venue_create")
-	public String createNewEvent(Model model) {
+	public String createNewVenue(Model model) {
 	
 	model.addAttribute("venues", venueService.findAll());
 
@@ -64,7 +64,7 @@ public class VenuesController {
 }
 	
 	@PostMapping(value = "/venue_create")
-	public String createNewEvent(@ModelAttribute Venue venue,Model model) {
+	public String createNewVenue(@ModelAttribute Venue venue,Model model) {
 		
 		
 		
