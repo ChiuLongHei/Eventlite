@@ -1,7 +1,9 @@
 package uk.ac.man.cs.eventlite.dao;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
+import uk.ac.man.cs.eventlite.entities.Event;
 import uk.ac.man.cs.eventlite.entities.Venue;
 
 public interface VenueService {
@@ -15,5 +17,7 @@ public interface VenueService {
 	public Venue findById(Long id);
 	
 	public Optional<Venue> findById(long id);
+	
+	public Iterable<Venue> searchVenues(String keyword);
 	
 }

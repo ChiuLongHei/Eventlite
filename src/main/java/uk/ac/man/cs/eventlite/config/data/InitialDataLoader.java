@@ -45,6 +45,11 @@ public class InitialDataLoader {
 			if (eventService.count() > 0) {
 				log.info("Database already populated with events. Skipping event initialization.");
 			} else {
+				Venue kilburn = new Venue();
+				kilburn.setCapacity(50);
+				kilburn.setId(2);
+				kilburn.setName("KilburnE");
+				venueService.saveVenue(kilburn);
 				Venue mecd = new Venue();
 				mecd.setCapacity(50);
 				mecd.setId(1);

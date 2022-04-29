@@ -1,7 +1,7 @@
 package uk.ac.man.cs.eventlite.dao;
 
 import java.io.InputStream;
-
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import uk.ac.man.cs.eventlite.entities.Event;
 import uk.ac.man.cs.eventlite.entities.Venue;
 
 
@@ -63,5 +64,9 @@ public class VenueServiceImpl implements VenueService {
 		return venueRepository.findById(id);
 	}
 
+	@Override
+	public Iterable<Venue> searchVenues(String keyword){
+		return venueRepository.findAllByNameContainingOrderByNameAsc(keyword);	
+	}
 }
 

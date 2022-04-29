@@ -1,5 +1,8 @@
 package uk.ac.man.cs.eventlite.controllers;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -51,4 +54,9 @@ public class VenuesController {
 		return "venues/index";
 	}
 
+	@GetMapping("/venues")
+	public String search(Model model, String keyword){
+		model.addAttribute("venues", venueService.searchVenues(keyword));
+		return "venues/index";
+	}
 }
