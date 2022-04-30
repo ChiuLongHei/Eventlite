@@ -30,7 +30,7 @@ public class VenuesController {
 
 	@ExceptionHandler(VenueNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public String eventNotFoundHandler(VenueNotFoundException ex, Model model) {
+	public String venueNotFoundHandler(VenueNotFoundException ex, Model model) {
 		model.addAttribute("not_found_id", ex.getId());
 
 		return "venues/not_found";

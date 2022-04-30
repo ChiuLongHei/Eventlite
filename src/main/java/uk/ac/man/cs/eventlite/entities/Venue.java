@@ -23,6 +23,10 @@ public class Venue {
 	
 	private String postalCode;
 
+	private double longitude;
+	
+	private double latitude;
+	
 	private int capacity;
 
 	public Venue() {
@@ -59,7 +63,23 @@ public class Venue {
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
-
+	
+	public void setLongitude(double value) {
+		this.longitude = value;
+	}
+	
+	public double getLongitude() {
+		return longitude;
+	}
+	
+	public void setLatitude(double value) {
+		this.latitude = value;
+	}
+	
+	public double getLatitude() {
+		return latitude;
+	}
+	
 	public int getCapacity() {
 		return capacity;
 	}
