@@ -69,16 +69,8 @@ public class VenuesController {
 	@PostMapping(value = "/venue_create")
 	public String createNewVenue(@ModelAttribute Venue venue,Model model) {
 		
-		
-		
-		//Venue eventVenue = venueService.findById(venue);
-		//event.setVenue(eventVenue);
-		
-		
-		
 		model.addAttribute("venue", venue);
 		venueService.saveVenue(venue);
-		//eventService.deleteAll();
 		
 		return "venues/venue_create";
 	}

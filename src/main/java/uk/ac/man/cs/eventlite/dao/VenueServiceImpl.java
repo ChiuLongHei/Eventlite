@@ -75,48 +75,5 @@ public class VenueServiceImpl implements VenueService {
 	public Iterable<Venue> searchVenues(String keyword){
 		return venueRepository.findAllByNameContainingOrderByNameAsc(keyword);	
 	}
-	
-	@Override
-	public Venue setLocation(Venue venue) {
-		String address = venue.getAddress();
-		String postcode = venue.getPostalCode();
-		MapboxGeocoding mapboxGeocoding = MapboxGeocoding.builder()
-				.accessToken("pk.eyJ1IjoiZDNubmlzdXR1IiwiYSI6ImNsMm0xYmpyYTBpcnAzYm11N3JuY2k0c3MifQ.xKR2OruW0ljKvKjBnusWvg")
-				.query(postcode)
-				.build();
-		mapboxGeocoding.enqueueCall(new Callback<GeocodingResponse>() {
-			@Override
-			public void onResponse(Call<GeocodingResponse> call, Response<GeocodingResponse> response) {
-		 
-				List<CarmenFeature> results = response.body().features();
-		 
-				if (results.size() > 0) {
-				  // Log the first results Point.
-				  Point firstResultPoint = results.get(0).center();
-				  venue.setLongitude(firstResultPoint.longitude());
-				  venue.setLatitude(firstResultPoint.latitude());
-				  log.info("Longitude: " + firstResultPoint.longitude());
-				  log.info("Latitude: " + firstResultPoint.latitude());
-		 
-				} else {
-				  // No result for your request were found.
-				  venue.setLongitude(0.0);
-				  venue.setLatitude(0.0);
-				  log.info("onResponse: No result found");
-				}
-			}
-		 
-			@Override
-			public void onFailure(Call<GeocodingResponse> call, Throwable throwable) {
-				throwable.printStackTrace();
-			}
-		});
-		try {
-		    Thread.sleep(1000L);
-		} catch(InterruptedException e) {
-		    System.out.println("got interrupted!");
-		}
-		return venue;
-	}
 }
 

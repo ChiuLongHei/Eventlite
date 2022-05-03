@@ -2,9 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default}">
+<script th:inline="javascript"src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
 <head>
-
-
   <title>All events</title>
 </head>
 <body>
@@ -38,7 +38,6 @@
             <form th:action="@{/events/{id}(id=${e.id})}" th:method="delete">
               <button type="submit" class="btn btn-danger btn-sm">Delete</button>
             </form>
-          </td>
         </tr>
       </tbody>
     </table>
@@ -74,10 +73,9 @@
       	Add
       </button>
     </form>
+    <div id="map">Hello</div>
   </div>
-  <script th:inline="javascript" src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
   <script th:inline="javascript">
-	/*<![CDATA[*/
 		mapboxgl.accessToken = 'pk.eyJ1IjoiZDNubmlzdXR1IiwiYSI6ImNsMm0xYmpyYTBpcnAzYm11N3JuY2k0c3MifQ.xKR2OruW0ljKvKjBnusWvg';
 		const map = new mapboxgl.Map({
 		container: 'map',
@@ -85,7 +83,6 @@
 		center: [0.0, 0.0],
 		zoom: 1
 		});
-	/*]]>*/
   </script>
 </body>
 </html>

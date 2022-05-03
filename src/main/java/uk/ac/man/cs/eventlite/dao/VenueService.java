@@ -20,6 +20,4 @@ public interface VenueService {
 	
 	public Iterable<Venue> searchVenues(String keyword);
 	
-	public Venue setLocation(Venue venue);
-	
 }
