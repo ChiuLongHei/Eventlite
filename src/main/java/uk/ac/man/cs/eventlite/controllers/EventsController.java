@@ -27,6 +27,10 @@ import uk.ac.man.cs.eventlite.entities.Event;
 import uk.ac.man.cs.eventlite.entities.Venue;
 //import uk.ac.man.cs.eventlite.dao.VenueService;
 import uk.ac.man.cs.eventlite.exceptions.EventNotFoundException;
+import twitter4j.Twitter;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
+
 
 @Controller
 @RequestMapping(value = "/events", produces = { MediaType.TEXT_HTML_VALUE })
@@ -122,4 +126,17 @@ public class EventsController {
 		model.addAttribute("previousEvents", eventService.searchBefore(date, keyword));
 		return "events/index";
 	}
+	
+	public Twitter TwitterService() {
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(true)
+		.setOAuthConsumerKey("your consumer key")
+		.setOAuthConsumerSecret("your consumer secret")
+		.setOAuthAccessToken("your access token")
+		.setOAuthAccessTokenSecret("your access token secret");
+		TwitterFactory tf = new TwitterFactory(cb.build());
+		Twitter twitter = tf.getInstance();
+		return twitter;
+	}
+	
 }
