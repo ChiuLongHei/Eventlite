@@ -81,20 +81,22 @@
       	Add
       </button>
     </form>
-    <div id="map">Hello</div>
-    <script>
-	  mapboxgl.accessToken = 'pk.eyJ1IjoiZDNubmlzdXR1IiwiYSI6ImNsMm0xYmpyYTBpcnAzYm11N3JuY2k0c3MifQ.xKR2OruW0ljKvKjBnusWvg';
-	  const map = new mapboxgl.Map({
-	  container: 'map',
-	  style: 'mapbox://styles/mapbox/streets-v11',
-	  center: [10.0, 53.2],
-	  zoom: 5
-	  });
-	  
-	  // Create a default Marker and add it to the map.
-	  const marker1 = new mapboxgl.Marker()
-	  .setLngLat([12.554729, 55.70651])
-	  .addTo(map);
+    <div id="map"></div>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+		  mapboxgl.accessToken = 'pk.eyJ1IjoiZDNubmlzdXR1IiwiYSI6ImNsMm0xYmpyYTBpcnAzYm11N3JuY2k0c3MifQ.xKR2OruW0ljKvKjBnusWvg';
+		  const map = new mapboxgl.Map({
+			  container: 'map',
+			  style: 'mapbox://styles/mapbox/streets-v11',
+			  center: [2.2426, 53.4808],
+			  zoom: 5
+		  });
+		  
+		  /*[# th:each="e : ${upcommingEvents}"]*/
+	      		new mapboxgl.Marker().setLngLat([ /*[[${e.venue.longitude}]]*/, /*[[${e.venue.latitude}]]*/ ]).addTo(map);
+	      /*[/]*/
+
+	  /*]]>*/
     </script>
   </div>
 
