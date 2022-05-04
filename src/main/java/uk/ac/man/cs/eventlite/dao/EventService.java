@@ -23,8 +23,6 @@ public interface EventService {
 
 	public Iterable<Event> findAllByDateBefore(LocalDate date);
 	
-	public void deleteAll();
-	
 	public Optional<Event> findById(long id);
 
 	public void delete(Event event);
@@ -32,5 +30,11 @@ public interface EventService {
 	public void deleteById(long id);
 
 	public boolean existsById(long id);
+	
+	public void deleteAll();
+	
+	public void deleteAll(Iterable<Event>events);
+
+	public void deleteAllById(Iterable<Long> ids);
 	
 }

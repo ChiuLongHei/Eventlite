@@ -86,7 +86,15 @@ public class EventsController {
 		}
 		eventService.deleteById(id);
 		redirectAttrs.addFlashAttribute("ok_message", "Event deleted.");
-		return "events/index";
+		return "redirect:/events";
+	}
+	
+	@DeleteMapping
+	public String deleteAllEvents(RedirectAttributes redirectAttrs) {
+		eventService.deleteAll();
+		redirectAttrs.addFlashAttribute("ok_message", "ALL events deleted.");
+
+		return "redirect:/events";
 	}
 
 		
