@@ -121,10 +121,10 @@ public class EventsController {
 	public Twitter TwitterService() {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
-		.setOAuthConsumerKey("your consumer key")
-		.setOAuthConsumerSecret("your consumer secret")
-		.setOAuthAccessToken("your access token")
-		.setOAuthAccessTokenSecret("your access token secret");
+		.setOAuthConsumerKey("6cte6d6lyLDM7o8nxQ7OYN5vN")
+		.setOAuthConsumerSecret("WQeV3g8VPBkzOWKp9ncoUo4iMVJzTscTTot7OdppzPyXcKpH3c")
+		.setOAuthAccessToken("839175127019442179-0xiYZAgVqhzv6QQkbE8OU2iYsBVyhAe")
+		.setOAuthAccessTokenSecret("zVOC71rGdJAiXS9THvqWjxCE5GaL7cckEZmyYTRIblXgJ");
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
 		return twitter;
