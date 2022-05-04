@@ -27,6 +27,7 @@ import uk.ac.man.cs.eventlite.entities.Event;
 import uk.ac.man.cs.eventlite.entities.Venue;
 //import uk.ac.man.cs.eventlite.dao.VenueService;
 import uk.ac.man.cs.eventlite.exceptions.EventNotFoundException;
+import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
@@ -51,13 +52,20 @@ public class EventsController {
 	}
 
 	@GetMapping("/{id}")
-	public String getEvent(@PathVariable("id") long id, Model model) {
+	public String getEvent(@PathVariable("id") long id, Model model, String tweet) {
 		model.addAttribute("event", eventService.findById(id));
 		if (eventService.findById(id).isPresent()) {
 			eventService.findById(id).ifPresent(event -> model.addAttribute(event));
 		}
 		else {
 			throw new EventNotFoundException(id);
+		}
+		Twitter twitter = TwitterService();
+		try {
+		Status status = twitter.updateStatus(tweet);
+		}catch(Exception e) {
+		e.printStackTrace();
+			
 		}
 
 		return "events/event-information";
@@ -138,5 +146,8 @@ public class EventsController {
 		Twitter twitter = tf.getInstance();
 		return twitter;
 	}
+	
+	
+	
 	
 }

@@ -14,6 +14,11 @@
 		<dd th:text="'Venue ' + ${event.venue.name}">Event venue name</dd>
 		<dd th:text="${event.description}"</dd>
     </dl>
+    <form action="#"  th:action="@{/events/{id}(id=${event.id})}" method="get">
+			  <label for="tweet">Write tweet:</label>
+			  <input type="text" id="tweet" name="tweet"  th:placeholder="${event.name}"><br><br>
+			  <input type="submit" value="Submit">
+			</form>
     <p></p>
     <p>Get back to the <a href = "/events">list of events</a> page.</p>
   </div>
