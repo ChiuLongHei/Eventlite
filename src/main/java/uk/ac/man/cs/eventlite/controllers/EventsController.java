@@ -3,6 +3,7 @@ package uk.ac.man.cs.eventlite.controllers;
 
 import java.time.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,7 +28,11 @@ import uk.ac.man.cs.eventlite.entities.Event;
 import uk.ac.man.cs.eventlite.entities.Venue;
 //import uk.ac.man.cs.eventlite.dao.VenueService;
 import uk.ac.man.cs.eventlite.exceptions.EventNotFoundException;
+import twitter4j.Paging;
+import twitter4j.ResponseList;
+import twitter4j.Status;
 import twitter4j.Twitter;
+import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
@@ -61,6 +66,17 @@ public class EventsController {
 		model.addAttribute("events", eventService.findAll());
 		model.addAttribute("upcommingEvents", eventService.findAllByDateAfter(date));
 		model.addAttribute("previousEvents", eventService.findAllByDateBefore(date));
+		
+		Paging p = new Paging();
+	    p.setCount(5);
+	    
+	    try {
+	    	ResponseList<Status> tweets = TwitterService().getUserTimeline(p);
+			model.addAttribute("tweets", tweets);
+			}
+			catch(TwitterException e) {
+				System.out.println("Twitter Error");
+			}
 
 		return "events/index";
 	}
@@ -129,5 +145,5 @@ public class EventsController {
 		Twitter twitter = tf.getInstance();
 		return twitter;
 	}
-	
+
 }
