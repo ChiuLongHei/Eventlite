@@ -4,8 +4,6 @@
       layout:decorate="~{layouts/default}">
 <head>
   <title>All Venues</title>
-  <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
   <div layout:fragment="content">
@@ -43,19 +41,6 @@
     </form>
   </div>
   
-  <div id='map' style='width: 400px; height: 300px;'></div>
-<script>
-// TO MAKE THE MAP APPEAR YOU MUST
-// ADD YOUR ACCESS TOKEN FROM
-// https://account.mapbox.com
-mapboxgl.accessToken = 'pk.eyJ1IjoiZDNubmlzdXR1IiwiYSI6ImNsMm0xYmpyYTBpcnAzYm11N3JuY2k0c3MifQ.xKR2OruW0ljKvKjBnusWvg';
-const map = new mapboxgl.Map({
-container: 'map', // container ID
-style: 'mapbox://styles/mapbox/streets-v11', // style URL
-center: [-74.5, 40], // starting position [lng, lat]
-zoom: 9 // starting zoom
-});
-</script>
 
 
 
