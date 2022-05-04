@@ -66,6 +66,7 @@ public class EventsController {
 		}catch(Exception e) {
 		e.printStackTrace();
 			
+		
 		}
 
 		return "events/event-information";
@@ -138,10 +139,10 @@ public class EventsController {
 	public Twitter TwitterService() {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
-		.setOAuthConsumerKey("6cte6d6lyLDM7o8nxQ7OYN5vN")
-		.setOAuthConsumerSecret("WQeV3g8VPBkzOWKp9ncoUo4iMVJzTscTTot7OdppzPyXcKpH3c")
-		.setOAuthAccessToken("839175127019442179-0xiYZAgVqhzv6QQkbE8OU2iYsBVyhAe")
-		.setOAuthAccessTokenSecret("zVOC71rGdJAiXS9THvqWjxCE5GaL7cckEZmyYTRIblXgJ");
+		.setOAuthConsumerKey("gkjSk5uYLm3G3cd6HsEFNpxU0")
+		.setOAuthConsumerSecret("6d4gDpSqZxY1frP6so6Y4bfmkG6bR5dPaNIL12u3tHfKF8kpEh")
+		.setOAuthAccessToken("839175127019442179-2O7HI9m1QJICRYo1yZ7hwQhu78FA6HN")
+		.setOAuthAccessTokenSecret("ublJ3DP4EyYQTM7SR6bIJzT8FTIFCGI3noNXCbivCm1Pp");
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
 		return twitter;
