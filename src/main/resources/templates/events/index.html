@@ -2,10 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default}">
-<script th:inline="javascript"src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
 <head>
   <title>All events</title>
+  <script th:inline="javascript"src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+  <style>
+    #map { 
+      position: relative;
+      top: 50px;
+      height: 500px;
+      margin: auto;
+    }
+  </style>
 </head>
 <body>
   <div layout:fragment="content">
@@ -74,15 +82,16 @@
       </button>
     </form>
     <div id="map">Hello</div>
+    <script>
+	  mapboxgl.accessToken = 'pk.eyJ1IjoiZDNubmlzdXR1IiwiYSI6ImNsMm0xYmpyYTBpcnAzYm11N3JuY2k0c3MifQ.xKR2OruW0ljKvKjBnusWvg';
+	  const map = new mapboxgl.Map({
+	  container: 'map',
+	  style: 'mapbox://styles/mapbox/streets-v11',
+	  center: [0.0, 0.0],
+	  zoom: 5
+	  });
+    </script>
   </div>
-  <script th:inline="javascript">
-		mapboxgl.accessToken = 'pk.eyJ1IjoiZDNubmlzdXR1IiwiYSI6ImNsMm0xYmpyYTBpcnAzYm11N3JuY2k0c3MifQ.xKR2OruW0ljKvKjBnusWvg';
-		const map = new mapboxgl.Map({
-		container: 'map',
-		style: 'mapbox://styles/mapbox/streets-v11',
-		center: [0.0, 0.0],
-		zoom: 1
-		});
-  </script>
+
 </body>
 </html>
