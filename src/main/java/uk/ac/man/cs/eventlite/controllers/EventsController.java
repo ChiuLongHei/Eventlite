@@ -56,8 +56,25 @@ public class EventsController {
 	}
 
 	@GetMapping("/{id}")
-	public String getEvent(@PathVariable("id") long id, Model model) {
-		throw new EventNotFoundException(id);
+	public String getEvent(@PathVariable("id") long id, Model model, String tweet) {
+			model.addAttribute("event", eventService.findById(id));
+			if (eventService.findById(id).isPresent()) {
+				eventService.findById(id).ifPresent(event -> model.addAttribute(event));
+			}
+			else {
+				throw new EventNotFoundException(id);
+			}
+			Twitter twitter = TwitterService();
+			try {
+			Status status = twitter.updateStatus(tweet);
+			}catch(Exception e) {
+			e.printStackTrace();
+				
+			
+			}
+
+			return "events/event-information";
+
 	}
 	
 	@GetMapping
