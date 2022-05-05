@@ -5,12 +5,16 @@ import java.time.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,15 +71,17 @@ public class EventsController {
 			Twitter twitter = TwitterService();
 			try {
 			Status status = twitter.updateStatus(tweet);
+			return "events/tweet_success";
 			}catch(Exception e) {
 			e.printStackTrace();
-				
+			//System.out.println(e.toString());
 			
 			}
-
 			return "events/event-information";
 
 	}
+	
+	
 	
 	@GetMapping
 	public String getAllEvents(Model model) {
@@ -167,3 +173,4 @@ public class EventsController {
 	
 	
 }
+
