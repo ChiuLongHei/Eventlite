@@ -136,7 +136,7 @@ public class Venue {
 			}
 		});
 		try {
-		    Thread.sleep(1000L);
+		    Thread.sleep(5000L);
 		} catch(InterruptedException e) {
 		    System.out.println("got interrupted!");
 		}
