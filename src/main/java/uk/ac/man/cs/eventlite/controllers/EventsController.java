@@ -11,16 +11,20 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import uk.ac.man.cs.eventlite.dao.EventRepository;
 import uk.ac.man.cs.eventlite.dao.EventService;
 import uk.ac.man.cs.eventlite.dao.VenueService;
 import uk.ac.man.cs.eventlite.entities.Event;
@@ -87,6 +91,25 @@ public class EventsController {
 		eventService.deleteById(id);
 		redirectAttrs.addFlashAttribute("ok_message", "Event deleted.");
 		return "events/index";
+	}
+	
+	/**@RequestMapping(method = RequestMethod.GET)
+	public String index(ModelMap modelMap) {
+		modelMap.put("event", new Event());
+		return "event/index";
+	}**/
+	@GetMapping(value = "/event_update")
+	public String update(@ModelAttribute Event event, Model model) {
+		model.addAttribute("venues", venueService.findAll());
+		
+		return "events/event_update";
+		
+	}
+
+	@RequestMapping(value = "/event_update", method = RequestMethod.POST)
+	public String update(@ModelAttribute Event event) {
+		eventService.update(event);
+		return "events/event_update";
 	}
 
 		

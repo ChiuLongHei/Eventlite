@@ -2,6 +2,7 @@ package uk.ac.man.cs.eventlite.dao;
 
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import uk.ac.man.cs.eventlite.entities.Event;
+import uk.ac.man.cs.eventlite.entities.Venue;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -84,8 +86,16 @@ public class EventServiceImpl implements EventService {
 		
 	}
 
-	public boolean existsById(long id) {
-		// TODO Auto-generated method stub
-		return eventRepository.existsById(id);
+	
+	
+	@Override
+    public boolean existsById(long id) {
+    	return eventRepository.existsById(id);
+    }
+	
+	@Override
+	public Event update(Event event) {
+		return eventRepository.save(event);
+		
 	}
 }
