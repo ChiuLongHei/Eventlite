@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import uk.ac.man.cs.eventlite.entities.Event;
+import uk.ac.man.cs.eventlite.entities.Venue;
 
 public interface EventService {
 
@@ -20,6 +21,8 @@ public interface EventService {
 	public Iterable<Event> findAllByDateAfter(LocalDate date);
 
 	public Iterable<Event> findAllByDateBefore(LocalDate date);
+	
+	public Iterable<Event> findAllByVenue(Venue venue);
 	
 	public void deleteAll();
 	

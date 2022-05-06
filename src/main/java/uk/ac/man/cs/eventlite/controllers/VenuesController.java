@@ -1,7 +1,10 @@
 package uk.ac.man.cs.eventlite.controllers;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import uk.ac.man.cs.eventlite.dao.EventRepository;
 import uk.ac.man.cs.eventlite.dao.VenueService;
+import uk.ac.man.cs.eventlite.entities.Event;
 import uk.ac.man.cs.eventlite.entities.Venue;
 import uk.ac.man.cs.eventlite.exceptions.VenueNotFoundException;
 
@@ -26,6 +31,9 @@ public class VenuesController {
 
 	@Autowired
 	private VenueService venueService;
+	
+	@Autowired 
+	private EventRepository eventRepository;
 	
 
 	@ExceptionHandler(VenueNotFoundException.class)
@@ -45,6 +53,20 @@ public class VenuesController {
 		else {
 			throw new VenueNotFoundException(id);
 		}
+		
+		Venue venue = venueService.findById(id).get();
+		Iterable<Event> events = eventRepository.findAllByVenue( venue);
+		List<Event> upcomingEvents = new ArrayList<Event>();
+		for (Event event : events) {
+			if( event.getDate().compareTo(LocalDate.now()) > 0)
+				upcomingEvents.add(event);
+			else if((event.getDate().compareTo(LocalDate.now()) == 0) &&
+					event.getTime().compareTo(LocalTime.now()) >= 0)
+				upcomingEvents.add(event);
+		
+		}
+	
+		model.addAttribute("venueUpcomingEvents", upcomingEvents);
 
 		return "venues/venue-information";
 	}
