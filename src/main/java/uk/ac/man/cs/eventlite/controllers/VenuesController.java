@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import uk.ac.man.cs.eventlite.dao.EventRepository;
+import uk.ac.man.cs.eventlite.dao.EventService;
 import uk.ac.man.cs.eventlite.dao.VenueService;
 import uk.ac.man.cs.eventlite.entities.Event;
 import uk.ac.man.cs.eventlite.entities.Venue;
@@ -33,7 +34,7 @@ public class VenuesController {
 	private VenueService venueService;
 	
 	@Autowired 
-	private EventRepository eventRepository;
+	private EventService eventService;
 	
 
 	@ExceptionHandler(VenueNotFoundException.class)
@@ -55,7 +56,7 @@ public class VenuesController {
 		}
 		
 		Venue venue = venueService.findById(id).get();
-		Iterable<Event> events = eventRepository.findAllByVenue( venue);
+		Iterable<Event> events = eventService.findAllByVenue( venue);
 		List<Event> upcomingEvents = new ArrayList<Event>();
 		for (Event event : events) {
 			if( event.getDate().compareTo(LocalDate.now()) > 0)

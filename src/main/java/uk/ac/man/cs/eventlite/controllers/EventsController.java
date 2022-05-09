@@ -71,6 +71,8 @@ public class EventsController {
 		model.addAttribute("upcommingEvents", eventService.findAllByDateAfter(date));
 		model.addAttribute("previousEvents", eventService.findAllByDateBefore(date));
 
+		
+		
 		return "events/index";
 	}
 	
