@@ -142,6 +142,8 @@ public class EventsController {
 
 	@GetMapping("/events")
 	public String search(Model model, String keyword){
+		if(keyword == null || keyword.isEmpty())
+			return "redirect:/events";
 		LocalDate date = LocalDate.now( ZoneId.of( "Europe/Paris" ) ) ;
 		model.addAttribute("upcommingEvents", eventService.searchAfter(date, keyword));
 		model.addAttribute("previousEvents", eventService.searchBefore(date, keyword));

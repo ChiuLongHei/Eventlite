@@ -7,15 +7,38 @@
 </head>
 <body>
   <div layout:fragment="content">
-  	<dl>
-  		<dd th:text="'Venue ' + ${venue.name}">Venue name</dd>
-  		<dd th:text="${venue.address}">Venue address</dd>
-  		<dd th:text="${venue.postalCode}">Venue postal code</dd>
-  		<dd th:text="'Capacity: ' + ${venue.capacity}">Venue capacity</dd>
-  		<p></p>
-  		<dd>Events coming up...</dd>
-    </dl>
-
+  <br>
+  <h1>Venue Information</h1>
+  <br>
+  <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th><i class="fas fa-bolt"></i> Category</th>
+          <th><i class="fas fa-bolt"></i> Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        	<td>Venue name</td>
+        	<td th:text="${venue.name}"></td>
+        </tr>
+        <tr>
+        	<td>Venue address</td>
+        	<td th:text="${venue.address}"></td>
+        </tr>
+        <tr>
+        	<td>Venue postal code</td>
+        	<td th:text="${venue.postalCode}"></td>
+        </tr>
+        <tr>
+        	<td>Venue capacity</td>
+        	<td th:text="${venue.capacity}"></td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+	<h2> Upcoming events at this Venue</h2>
+	<br>
        <table class="table table-striped table-hover">
       <thead>
         <tr>
@@ -40,7 +63,13 @@
       	Home
       </button>
     </form>
+    </form>
+	<form th:action="@{/homepage}">
+      <button type="submit" class="btn btn-succes btn-lg">
+	  	<span class="fas fa-reply"></span>
+	  	Back
+	  </button>
+	</form>
     </div>
-
 </body>
 </html>

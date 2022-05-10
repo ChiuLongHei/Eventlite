@@ -7,15 +7,42 @@
 </head>
 <body>
   <div layout:fragment="content">
-  	<dl>
-  		<dd th:text="'Event ' + ${event.name}">Event name</dd>
-  		<dd th:text="${event.date}">Event date</dd>
-  		<dd th:text="${event.time}">Event time</dd>
-		<dd th:text="'Venue ' + ${event.venue.name}">Event venue name</dd>
-		<dd th:text="${event.description}"</dd>
-    </dl>
-    <p></p>
-    <p>Get back to the <a href = "/events">list of events</a> page.</p>
+  <br>
+  	<h1>Events details</h1>
+  <br>
+  <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th><i class="fas fa-bolt"></i> Category</th>
+          <th><i class="fas fa-bolt"></i> Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        	<td>Event name</td>
+        	<td th:text="${event.name}"></td>
+        </tr>
+        <tr>
+        	<td>Event date</td>
+        	<td th:text="${event.date}"></td>
+        </tr>
+        <tr>
+        	<td>Event time</td>
+        	<td th:text="${event.time}"></td>
+        </tr>
+        <tr>
+        	<td>Venue</td>
+        	<td th:text="${event.venue.name}"></td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <form th:action="@{/events}">
+      <button type="submit" class="btn btn-succes btn-lg">
+      	<span class="fas fa-reply"></span>
+      	Back
+      </button>
+    </form>
   </div>
 
 </body>
