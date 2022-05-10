@@ -15,6 +15,19 @@
 		<dd th:text="${event.description}"</dd>
     </dl>
     <p></p>
+	
+	<form th:action="@{/events/{num}(num=${id})}"  th:method="delete" >
+  	<a class="btn btn-primary" role="button" th:href="@{/events}" ><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to all Events</a>
+  	<button type="submit" class="btn btn-danger btn-sm" sec:authorize="isAuthenticated()">Delete</button>
+  	
+  	<!--
+  	<a class = "btn btn-primary" role="button" th:href="@{/events/event_update/{num}(num=${event.id})}" sec:authorize="isAuthenticated()">Update</a>
+  	-->
+
+  </form>
+	
+    
+    
     <p>Get back to the <a href = "/events">list of events</a> page.</p>
   </div>
 

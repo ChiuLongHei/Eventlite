@@ -20,4 +20,17 @@ public interface VenueService {
 	
 	public Iterable<Venue> searchVenues(String keyword);
 	
+	public void delete(Venue venue);
+
+	public void deleteById(long id);
+
+	public boolean existsById(long id);
+	
+	public void deleteAll();
+	
+	public void deleteAll(Iterable<Venue>venues);
+
+	public void deleteAllById(Iterable<Long> ids);
+
+	
 }

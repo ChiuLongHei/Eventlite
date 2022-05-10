@@ -90,7 +90,15 @@ public class EventsController {
 		}
 		eventService.deleteById(id);
 		redirectAttrs.addFlashAttribute("ok_message", "Event deleted.");
-		return "events/index";
+		return "redirect:/events";
+	}
+	
+	@DeleteMapping
+	public String deleteAllEvents(RedirectAttributes redirectAttrs) {
+		eventService.deleteAll();
+		redirectAttrs.addFlashAttribute("ok_message", "ALL events deleted.");
+
+		return "redirect:/events";
 	}
 	
 	/**@RequestMapping(method = RequestMethod.GET)
@@ -100,6 +108,7 @@ public class EventsController {
 	}**/
 	@GetMapping(value = "/event_update")
 	public String update(@ModelAttribute Event event, Model model) {
+		
 		model.addAttribute("venues", venueService.findAll());
 		
 		return "events/event_update";

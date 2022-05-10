@@ -35,9 +35,6 @@
           <td th:text="${{e.date}}">Event date</td>
           <td th:text="${{e.time}}">Event time</td>
             <td>
-            <form th:action="@{/events/{id}(id=${e.id})}" th:method="delete">
-              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-            </form>
           </td>
         </tr>
       </tbody>
@@ -62,9 +59,6 @@
           <td th:text="${{e.date}}">Event date</td>
           <td th:text="${{e.time}}">Event time</td>
           <td>
-            <form th:action="@{/events/{id}(id=${e.id})}" th:method="delete">
-              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-            </form>
           </td>
         </tr>
         
@@ -79,6 +73,12 @@
       	Add
       </button>
     </form>
+    <br>
+    
+    <form th:action="${(#mvc.url('EC#deleteAllEvents')).build()}" th:method="delete">  
+      <button type="submit" class="btn btn-danger" sec:authorize="isAuthenticated()"><i class="fas fa-trash" aria-hidden="true"></i> Delete All</button>
+    </form>
+    
   </div>
 
 
