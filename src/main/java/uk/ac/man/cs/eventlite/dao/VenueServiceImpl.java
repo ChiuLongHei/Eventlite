@@ -54,7 +54,10 @@ public class VenueServiceImpl implements VenueService {
 		
 	}
 	
-	
+	public void deleteAll() {
+		venueRepository.deleteAll();
+		
+	}
 	
 	@Override
 	public Optional<Venue> findById(long id){
@@ -65,41 +68,5 @@ public class VenueServiceImpl implements VenueService {
 	public Iterable<Venue> searchVenues(String keyword){
 		return venueRepository.findAllByNameContainingOrderByNameAsc(keyword);	
 	}
-	
-	@Override
-	public void delete(Venue venue) {
-		// TODO Auto-generated method stub
-		venueRepository.delete(venue);
-		
-	}
-
-	@Override
-	public void deleteById(long id) {
-		venueRepository.deleteById(id);
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void deleteAll() {
-		venueRepository.deleteAll();
-	}
-	
-	@Override
-	public void deleteAll(Iterable<Venue> venues) {
-		venueRepository.deleteAll(venues);
-	}
-
-	@Override
-	public void deleteAllbyId(Iterable<Long> ids) {
-		venueRepository.deleteAllById(ids);
-	}
-
-	@Override
-	public boolean existsById(long id) {
-		// TODO Auto-generated method stub
-		return venueRepository.existsById(id);
-	}
-
 }
 
