@@ -40,11 +40,6 @@
           <td th:text="${{e.date}}">Event date</td>
           <td th:text="${{e.time}}">Event time</td>
             <td>
-            <form th:action="@{/events/{id}(id=${e.id})}" th:method="delete">
-              <button type="submit" class="btn btn-danger btn-sm"> 
-              <span class="fas fa-trash" aria-hidden="true"></span>
-              Delete</button>
-            </form>
           </td>
         </tr>
       </tbody>
@@ -69,11 +64,6 @@
           <td th:text="${{e.date}}">Event date</td>
           <td th:text="${{e.time}}">Event time</td>
           <td>
-            <form th:action="@{/events/{id}(id=${e.id})}" th:method="delete">
-              <button type="submit" class="btn btn-danger btn-sm"> 
-              <span class="fas fa-trash" aria-hidden="true"></span>
-              Delete</button>
-            </form>
           </td>
         </tr>
       </tbody>
@@ -92,13 +82,20 @@
       	Update
       </button>
     </form>
+    
+   	<br>
+    <form th:action="${(#mvc.url('EC#deleteAllEvents')).build()}" th:method="delete">  
+      <button type="submit" class="btn btn-danger" sec:authorize="isAuthenticated()"><i class="fas fa-trash" aria-hidden="true"></i> Delete All Events</button>
+    </form>
+    
     <br>
     <form th:action="@{/homepage}">
       <button type="submit" class="btn btn-succes btn-lg">
 	  	<span class="fas fa-reply"></span>
 	  	Back
 	  </button>
-	</form>
+	</form>	
+	
   </div>
 
 

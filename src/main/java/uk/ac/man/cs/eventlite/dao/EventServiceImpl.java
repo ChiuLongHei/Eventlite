@@ -65,40 +65,58 @@ public class EventServiceImpl implements EventService {
 		return eventRepository.findAllByDateBefore(date);
 	}
 	
-	public void deleteAll() {
-		eventRepository.deleteAll();
-		
-	}
 
 	@Override
 	public Optional<Event> findById(long id) {
 		return eventRepository.findById(id);
 	}
 
-	public void delete(Event event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void deleteById(long id) {
-		eventRepository.deleteById(id);
-		// TODO Auto-generated method stub
-		
-	}
 
 	public Iterable<Event> findAllByVenue(Venue venue) {
 		return eventRepository.findAllByVenue(venue);
 	}
 	
-	
-	@Override
-    public boolean existsById(long id) {
-    	return eventRepository.existsById(id);
-    }
+
 	
 	@Override
 	public Event update(Event event) {
 		return eventRepository.save(event);
 		
 	}
+	
+	@Override
+	public void delete(Event event) {
+		// TODO Auto-generated method stub
+		eventRepository.delete(event);
+		
+	}
+
+	@Override
+	public void deleteById(long id) {
+		eventRepository.deleteById(id);
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void deleteAll() {
+		eventRepository.deleteAll();
+	}
+	
+	@Override
+	public void deleteAll(Iterable<Event> events) {
+		eventRepository.deleteAll(events);
+	}
+
+	@Override
+	public void deleteAllbyId(Iterable<Long> ids) {
+		eventRepository.deleteAllById(ids);
+	}
+
+	@Override
+	public boolean existsById(long id) {
+		// TODO Auto-generated method stub
+		return eventRepository.existsById(id);
+	}
+
 }
