@@ -39,6 +39,8 @@ public class InitialDataLoader {
 				kilburn.setCapacity(50);
 				kilburn.setId(1);
 				kilburn.setName("Kilburn");
+				kilburn.setAddress("Oxford Road");
+				kilburn.setPostalCode("M13 9PL");
 				venueService.saveVenue(kilburn);
 			}
 			
@@ -49,11 +51,15 @@ public class InitialDataLoader {
 				kilburn.setCapacity(50);
 				kilburn.setId(2);
 				kilburn.setName("KilburnE");
+				kilburn.setAddress("Oxford Road");
+				kilburn.setPostalCode("M13 9PL");
 				venueService.saveVenue(kilburn);
 				Venue mecd = new Venue();
 				mecd.setCapacity(50);
 				mecd.setId(1);
 				mecd.setName("MECD");
+				mecd.setAddress("Booth Street");
+				mecd.setPostalCode("M13 9XH");
 				venueService.saveVenue(mecd);
 				Event showcase = new Event();
 				showcase.setId(1);

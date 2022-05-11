@@ -39,7 +39,7 @@ public class VenuesController {
 
 	@ExceptionHandler(VenueNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public String eventNotFoundHandler(VenueNotFoundException ex, Model model) {
+	public String venueNotFoundHandler(VenueNotFoundException ex, Model model) {
 		model.addAttribute("not_found_id", ex.getId());
 
 		return "venues/not_found";
@@ -92,16 +92,8 @@ public class VenuesController {
 	@PostMapping(value = "/venue_create")
 	public String createNewVenue(@ModelAttribute Venue venue,Model model) {
 		
-		
-		
-		//Venue eventVenue = venueService.findById(venue);
-		//event.setVenue(eventVenue);
-		
-		
-		
 		model.addAttribute("venue", venue);
 		venueService.saveVenue(venue);
-		//eventService.deleteAll();
 		
 		return "venues/venue_create";
 	}

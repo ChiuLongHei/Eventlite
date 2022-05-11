@@ -3,8 +3,25 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default}">
 <head>
+  <title>All events</title>
+  <script th:inline="javascript"src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+  <style>
+    #map { 
+      position: relative;
+      height: 650px;
+      top: 50px;
+    }
+    
+    .mapboxgl-popup {
+	  max-width: 200px;
+	}
 
-
+	.mapboxgl-popup-content {
+	  text-align: center;
+	}
+    
+  </style>
   <title>All events</title>
 </head>
 <body>
@@ -94,15 +111,54 @@
     <form th:action="${(#mvc.url('EC#deleteAllEvents')).build()}" th:method="delete">  
       <button type="submit" class="btn btn-danger" sec:authorize="isAuthenticated()"><i class="fas fa-trash" aria-hidden="true"></i> Delete All Events</button>
     </form>
-    
-    <br>
+	
+    <div id="map"></div>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+		  mapboxgl.accessToken = 'pk.eyJ1IjoiZDNubmlzdXR1IiwiYSI6ImNsMm0xYmpyYTBpcnAzYm11N3JuY2k0c3MifQ.xKR2OruW0ljKvKjBnusWvg';
+		  const map = new mapboxgl.Map({
+			  container: 'map',
+			  style: 'mapbox://styles/mapbox/streets-v11',
+			  center: [2.2426, 53.4808],
+			  zoom: 5
+		  });
+		  
+	  	  var long = [];
+	  	  var latt = [];
+		  
+		  /*[# th:each="e : ${upcommingEvents}"]*/
+		  		long.push(/*[[${e.venue.longitude}]]*/);
+		  		latt.push(/*[[${e.venue.latitude}]]*/);
+	      		new mapboxgl.Marker().setLngLat([ /*[[${e.venue.longitude}]]*/, /*[[${e.venue.latitude}]]*/ ]) 		// coordinates
+	      		  .setPopup(
+				    new mapboxgl.Popup()		// popups
+				      .setHTML(
+				        `<h3>[(${e.name})]</h3><p>Starts At: [(${e.time})]</p>`			// popup content
+				      )
+				  ).addTo(map);
+	      /*[/]*/
+	      
+	      // calculate the coordinates for the bounding box
+	      const southWest = new mapboxgl.LngLat(Math.min.apply(Math, long), Math.min.apply(Math, latt));
+	 	  const northEast = new mapboxgl.LngLat(Math.max.apply(Math, long), Math.max.apply(Math, latt));
+		  const boundingBox = new mapboxgl.LngLatBounds(southWest, northEast);
+		  
+		  // bounding box for auto zoom
+		  map.fitBounds(boundingBox, {
+		  	padding: 75
+		  });
+	      
+
+	  /*]]>*/
+    </script>
+    	<br>
+      <br>
     <form th:action="@{/homepage}">
       <button type="submit" class="btn btn-succes btn-lg">
 	  	<span class="fas fa-reply"></span>
 	  	Back
 	  </button>
 	</form>	
-	
   </div>
 
 
