@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<head>
+  <title>All events</title>
+</head>
+<tbody>
+  <div layout:fragment="content">
+   	<th1>update event</th1>
+   		<form action="#" th:action="@{/events/event_update}"  sec:authorize="isAuthenticated()" modelAttribute="event" method="post">
+   			<label for="id">id:</label>
+			<input type="text" id="id" name="id"  th:maxlength="256" th:required="required"><br><br>	
+			<label for="name">Event name:</label>
+			<input type="text" id="name" name="name"  th:maxlength="256" th:required="required"><br><br>		  
+			<label for="time">time:</label>
+			<input type="time" id="time" name="time"><br><br>
+			<label for="date">date:</label>
+			<input type="date" id="date" name="date"  th:required="required" min="<?php echo $today; ?>"><br><br>
+			<label for="description">description:</label>
+			<input type="text" id="description" name="description"  th:maxlength="500" placeholder=""><br><br>
+			<label for="venue">Venue:</label>
+			<select  class="form-control" th:id="venue" th:name="venue"  type="hidden" placeholder="1">
+        	<option th:each="venue : ${venues}"
+        		th:value="${venue.getId()}"
+                th:text="${venue.getName()}"/>
+    		</select>
+    		<input type="submit" value="Submit">
+		</form>
+		
+
+  </div>
+</body>
+</html>

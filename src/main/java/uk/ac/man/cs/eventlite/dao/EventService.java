@@ -1,11 +1,10 @@
 package uk.ac.man.cs.eventlite.dao;
 
 import java.time.LocalDate;
-import java.util.List;
-
 import java.util.Optional;
 
 import uk.ac.man.cs.eventlite.entities.Event;
+import uk.ac.man.cs.eventlite.entities.Venue;
 
 public interface EventService {
 
@@ -23,7 +22,7 @@ public interface EventService {
 
 	public Iterable<Event> findAllByDateBefore(LocalDate date);
 	
-	public void deleteAll();
+	public Iterable<Event> findAllByVenue(Venue venue);
 	
 	public Optional<Event> findById(long id);
 
@@ -33,4 +32,12 @@ public interface EventService {
 
 	public boolean existsById(long id);
 	
+	public void deleteAll();
+	
+	public void deleteAll(Iterable<Event>events);
+
+	public void deleteAllById(Iterable<Long> ids);
+
+
+    public Event update(Event event);
 }

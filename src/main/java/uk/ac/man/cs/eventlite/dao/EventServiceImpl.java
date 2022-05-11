@@ -2,6 +2,7 @@ package uk.ac.man.cs.eventlite.dao;
 
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import uk.ac.man.cs.eventlite.entities.Event;
+import uk.ac.man.cs.eventlite.entities.Venue;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -63,29 +65,56 @@ public class EventServiceImpl implements EventService {
 		return eventRepository.findAllByDateBefore(date);
 	}
 	
-	public void deleteAll() {
-		eventRepository.deleteAll();
-		
-	}
-
 	@Override
 	public Optional<Event> findById(long id) {
 		return eventRepository.findById(id);
 	}
 
+
+	public Iterable<Event> findAllByVenue(Venue venue) {
+		return eventRepository.findAllByVenue(venue);
+	}
+	
+	
+	@Override
 	public void delete(Event event) {
 		// TODO Auto-generated method stub
+		eventRepository.delete(event);
 		
 	}
 
+	@Override
 	public void deleteById(long id) {
 		eventRepository.deleteById(id);
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void deleteAll() {
+		eventRepository.deleteAll();
+	}
+	
+	@Override
+	public void deleteAll(Iterable<Event> events) {
+		eventRepository.deleteAll(events);
+	}
 
+	@Override
+	public void deleteAllbyId(Iterable<Long> ids) {
+		eventRepository.deleteAllById(ids);
+	}
+
+	@Override
 	public boolean existsById(long id) {
 		// TODO Auto-generated method stub
 		return eventRepository.existsById(id);
+	}
+
+	
+	@Override
+	public Event update(Event event) {
+		return eventRepository.save(event);
+		
 	}
 }
