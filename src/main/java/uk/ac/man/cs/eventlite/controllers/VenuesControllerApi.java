@@ -3,9 +3,15 @@ package uk.ac.man.cs.eventlite.controllers;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,8 +45,14 @@ public class VenuesControllerApi {
 	private static final String NOT_FOUND_MSG = "{ \"error\": \"%s\", \"id\": %d }";
 
 	@Autowired
+	private EventService eventService;
+	
+	@Autowired
 	private VenueService venueService;
 
+	@Autowired
+	private EventModelAssembler eventAssembler;
+	
 	@Autowired
 	private VenueModelAssembler venueAssembler;
 
@@ -52,13 +64,62 @@ public class VenuesControllerApi {
 
 	@GetMapping("/{id}")
 	public EntityModel<Venue> getVenue(@PathVariable("id") long id) {
-		throw new VenueNotFoundException(id);
+		Optional<Venue> venueOptional = venueService.findById(id);
+		
+		Venue venue;
+		if (venueOptional.isPresent()) {
+			venue = venueOptional.get();
+		}
+		else {
+			throw new EventNotFoundException(id);
+		}
+
+		return venueAssembler.toModel(venue);
 	}
 
 	@GetMapping
 	public CollectionModel<EntityModel<Venue>> getAllVenues() {
 		return venueAssembler.toCollectionModel(venueService.findAll())
-				.add(linkTo(methodOn(VenuesControllerApi.class).getAllVenues()).withSelfRel());
+				.add(linkTo(methodOn(VenuesControllerApi.class).getAllVenues()).withSelfRel(),
+				     Link.of("http://localhost:8080/api/profile/venues").withRel("profile"));
+	}
+	
+	@GetMapping("/{id}/events")
+	public CollectionModel<EntityModel<Event>> getVenueEvents(@PathVariable("id") long id) {
+		Optional<Venue> venueOptional = venueService.findById(id);
+		
+		Venue venue;
+		if (venueOptional.isPresent()) {
+			venue = venueOptional.get();
+		}
+		else {
+			throw new VenueNotFoundException(id);
+		}
+		
+		Iterable<Event> venueEvents =  eventService.findAllByVenue(venue);
+		
+		return eventAssembler.toCollectionModel(venueEvents)
+				.add(linkTo(methodOn(VenuesControllerApi.class).getVenueEvents(id)).withSelfRel());
+	}
+	
+	@GetMapping("/{id}/next3events")
+	public CollectionModel<EntityModel<Event>> getNext3Events(@PathVariable("id") long id) {
+		Optional<Venue> venueOptional = venueService.findById(id);
+		
+		Venue venue;
+		if (venueOptional.isPresent()) {
+			venue = venueOptional.get();
+		}
+		else {
+			throw new VenueNotFoundException(id);
+		}
+		
+		LocalDate date = LocalDate.now( ZoneId.of( "Europe/London" ) ) ;
+		
+		Iterable<Event> venueEvents =  eventService.findNext3EventsOfVenue(venue, date);
+		
+		return eventAssembler.toCollectionModel(venueEvents)
+				.add(linkTo(methodOn(VenuesControllerApi.class).getNext3Events(id)).withSelfRel());
 	}
 	
 	@DeleteMapping("/{id}")
