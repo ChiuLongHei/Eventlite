@@ -56,7 +56,12 @@ body { margin: 0; padding: 0; }
         </tr>
       </tbody>
     </table>
-    
+    <br>
+    <form action="#"  th:action="@{/events/{id}(id=${event.id})}" method="get">
+			  <label for="tweet">Write tweet:</label>
+			  <input type="text" id="tweet" name="tweet"  th:placeholder="${event.name}"><br><br>
+			  <input type="submit" value="Submit">
+			</form>
     <br>
     <form th:action="@{/events}">
       <button type="submit" class="btn btn-succes btn-lg">
@@ -113,7 +118,7 @@ body { margin: 0; padding: 0; }
 	  /*]]>*/
     </script>
   
-
+	<p>Get back to the <a href = "/events">list of events</a> page.</p>
   </div>
 
 </body>
