@@ -10,7 +10,18 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
 <style>
 body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    #map { 
+      position: relative;
+      height: 650px;
+      top: 50px;
+    }
+    .mapboxgl-popup {
+	  max-width: 200px;
+	}
+
+	.mapboxgl-popup-content {
+	  text-align: center;
+	}
 </style>
 
 </head>
@@ -38,9 +49,28 @@ body { margin: 0; padding: 0; }
 			  zoom: 5
 		  });
 		  
-		  /*[# th:each="e : ${venues}"]*/
-	      		new mapboxgl.Marker().setLngLat([ /*[[${e.longitude}]]*/, /*[[${e.latitude}]]*/ ]).addTo(map);
+	     /*[# th:each="e : ${event}"]*/
+		  		long.push(/*[[${e.venue.longitude}]]*/);
+		  		latt.push(/*[[${e.venue.latitude}]]*/);
+	      		new mapboxgl.Marker().setLngLat([ /*[[${e.venue.longitude}]]*/, /*[[${e.venue.latitude}]]*/ ]) 		// coordinates
+	      		  .setPopup(
+				    new mapboxgl.Popup()		// popups
+				      .setHTML(
+				        `<h3>[(${e.name})]</h3><p>Starts At: [(${e.time})]</p>`			// popup content
+				      )
+				  ).addTo(map);
 	      /*[/]*/
+	      
+		  // calculate the coordinates for the bounding box
+	      const southWest = new mapboxgl.LngLat(Math.min.apply(Math, long), Math.min.apply(Math, latt));
+	 	  const northEast = new mapboxgl.LngLat(Math.max.apply(Math, long), Math.max.apply(Math, latt));
+		  const boundingBox = new mapboxgl.LngLatBounds(southWest, northEast);
+		  
+	      
+	    // bounding box for auto zoom
+		  map.fitBounds(boundingBox, {
+		  	padding: 75
+		  });
 
 	  /*]]>*/
     </script>
