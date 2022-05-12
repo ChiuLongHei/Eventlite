@@ -75,5 +75,12 @@ public class VenueServiceImpl implements VenueService {
 	public Iterable<Venue> searchVenues(String keyword){
 		return venueRepository.findAllByNameContainingOrderByNameAsc(keyword);	
 	}
+	
+	@Override
+	public Venue update(Venue venue) {
+		return venueRepository.save(venue);
+		
+	}
+
 }
 

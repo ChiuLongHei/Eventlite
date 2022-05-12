@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import uk.ac.man.cs.eventlite.dao.EventRepository;
@@ -97,6 +98,23 @@ public class VenuesController {
 		
 		return "venues/venue_create";
 	}
+	
+	@GetMapping(value = "/venue_update")
+	public String update(@ModelAttribute Venue venue, Model model) {
+		model.addAttribute("venues", venueService.findAll());
+		
+		return "venues/venue_update";
+		
+	}
+
+	@RequestMapping(value = "/venue_update", method = RequestMethod.POST)
+	public String update(@ModelAttribute Venue venue) {
+		venueService.update(venue);
+		return "venues/venue_update";
+	}
+
+	
+	
 
 	@GetMapping("/venues")
 	public String search(Model model, String keyword){
