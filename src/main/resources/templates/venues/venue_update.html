@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<head>
+
+
+  <title>All venues</title>
+</head>
+
+<tbody>
+	<div layout:fragment="content">
+		<th1>fill out creating the form</th1>
+			<form action="#" th:action="@{/venues/venue_update}" th:object="${venue}"  sec:authorize="isAuthenticated()" modelAttribute="venue" method="post">
+			  <label for="id">Venue id:</label>
+			  <input type="text" id="id" name="id"  th:maxlength="256" th:required="required"><br><br>
+			  
+			  <label for="name">Venue name:</label>
+			  <input type="text" id="name" name="name"  th:maxlength="256" th:required="required"><br><br>
+			  
+			  <label for="address">Road name:</label>
+			  <input type="text" id="address" name="address"  th:maxlength="300" th:required="required"><br><br>
+			  
+			   <label for="postalCode">postalCode:</label>
+			  <input type="text" id="postalCode" name="postalCode"  pattern="^([A-Z][A-HJ-Y]?\d[A-Z\d]? ?\d[A-Z]{2}|GIR ?0A{2})$" th:required="required"><br><br>
+			  
+			  <label for="capacity">capacity:</label>
+			  <input type="number" id="capacity" name="capacity"  min = "1" th:required="required"><br><br>
+			  
+			 
+			  
+			  
+			  
+			  
+			  
+    		  
+			  <input type="submit" value="Submit">
+			</form>
+	 </div>	
+</tbody>
+</html>
