@@ -71,7 +71,7 @@ public class VenuesControllerApi {
 			venue = venueOptional.get();
 		}
 		else {
-			throw new EventNotFoundException(id);
+			throw new VenueNotFoundException(id);
 		}
 
 		return venueAssembler.toModel(venue);
@@ -120,22 +120,6 @@ public class VenuesControllerApi {
 		
 		return eventAssembler.toCollectionModel(venueEvents)
 				.add(linkTo(methodOn(VenuesControllerApi.class).getNext3Events(id)).withSelfRel());
-	}
-	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteVenue(@PathVariable("id") long id) {
-		if (!venueService.existsById(id)) {
-			throw new VenueNotFoundException(id);
-		}
-		venueService.deleteById(id);
-		return ResponseEntity.noContent().build();
-	}
-	
-	@DeleteMapping
-	public ResponseEntity<?> deleteAllVenues() {
-		venueService.deleteAll();
-
-		return ResponseEntity.noContent().build();
 	}
 
 

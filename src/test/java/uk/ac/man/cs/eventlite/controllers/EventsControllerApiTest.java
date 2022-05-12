@@ -102,11 +102,21 @@ public class EventsControllerApiTest {
 				.andExpect(jsonPath("$.name", equalTo("Event")))
 				.andExpect(jsonPath("$.description", equalTo("Description")))
 				.andExpect(jsonPath("$.date", equalTo(d.toString())))
-				.andExpect(jsonPath("$.time", equalTo(t.toString())))
+				.andExpect(jsonPath("$.time", containsString(t.toString())))
 				.andExpect(jsonPath("$._links.self.href", endsWith("/api/events/0")))
 				.andExpect(jsonPath("$._links.event.href", endsWith("/api/events/0")))
 				.andExpect(jsonPath("$._links.venue.href", endsWith("/api/events/0/venue")))
 				.andExpect(handler().methodName("getEvent"));
+		
+		verify(eventService).findById(0);
+	}
+	
+	@Test
+	public void getEventVenueWhenNotFound() throws Exception {
+		
+		mvc.perform(get("/api/events/99/venue").accept(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.error", containsString("event 99"))).andExpect(jsonPath("$.id", equalTo(99)))
+				.andExpect(handler().methodName("getEventVenue"));
 	}
 	
 	@Test
@@ -141,6 +151,8 @@ public class EventsControllerApiTest {
 				.andExpect(jsonPath("$._links.events.href", endsWith("/api/venues/0/events")))
 				.andExpect(jsonPath("$._links.next3events.href", endsWith("/api/venues/0/next3events")))
 				.andExpect(handler().methodName("getEventVenue"));
+		
+		verify(eventService).findById(0);
 	}
 	
 }

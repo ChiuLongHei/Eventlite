@@ -73,7 +73,7 @@ public class EventsControllerApi {
 		Optional<Event> eventOptional = eventService.findById(id);
 		
 		Venue venue;
-		if (eventService.findById(id).isPresent()) {
+		if (eventOptional.isPresent()) {
 			venue = eventOptional.get().getVenue();
 		}
 		else {
@@ -88,22 +88,5 @@ public class EventsControllerApi {
 		return eventAssembler.toCollectionModel(eventService.findAll())
 				.add(linkTo(methodOn(EventsControllerApi.class).getAllEvents()).withSelfRel());
 	}
-	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteEvent(@PathVariable("id") long id) {
-		if (!eventService.existsById(id)) {
-			throw new EventNotFoundException(id);
-		}
-		eventService.deleteById(id);
-		return ResponseEntity.noContent().build();
-	}
-	
-	@DeleteMapping
-	public ResponseEntity<?> deleteAllEvents() {
-		eventService.deleteAll();
-
-		return ResponseEntity.noContent().build();
-	}
-
 
 }
