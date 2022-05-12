@@ -67,4 +67,9 @@ public class Venue {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
+
+	public boolean isPresent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
