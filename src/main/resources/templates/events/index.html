@@ -177,7 +177,7 @@
       <tbody>
           <tr th:each="t : ${tweets}">
               <td th:text="${t.createdAt}">Date</td>
-              <td th:text="${t.text}">Text</td>
+              <td> <a th:href="@{https://twitter.com/zarbisc/status/{link}(link=${t.id})}" th:text="${t.text}">Text</td>
           </tr>
       </tbody>
       </table>
