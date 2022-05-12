@@ -116,29 +116,6 @@ public class VenuesController {
 		model.addAttribute("venues", venueService.searchVenues(keyword));
 		return "venues/index";
 	}
-	
-	/*
-	@DeleteMapping("/{id}")
-	public String deleteVenue(@PathVariable("id") long id, RedirectAttributes redirectAttrs) {
-		
-		for (Venue V : venueService.findAll()) {
-			if (V.getId()==id) {
-				if (V.getEvents().size()!=0){
-					redirectAttrs.addFlashAttribute("ok_message", "Venue cannot be deleted as it has events associated with it.");
-					String returnString = ("redirect:/venues/"+id);
-					return returnString;
-				}
-				else {
-					venueService.deleteById(id);
-					redirectAttrs.addFlashAttribute("ok_message", "Venue deleted.");
-					return "redirect:/venues";
-					}
-			}
-		}
-		return "redirect:/venues";
-		
-	}
-	*/
 
 	@DeleteMapping
 	public String deleteAllVenues(RedirectAttributes redirectAttrs) {
