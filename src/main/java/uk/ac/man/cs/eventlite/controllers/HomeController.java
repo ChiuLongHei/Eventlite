@@ -1,6 +1,7 @@
 package uk.ac.man.cs.eventlite.controllers;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,16 +31,21 @@ public class HomeController{
 	
 	@GetMapping
 	public String getHomeEvents(Model model) {
-		LocalDate date = LocalDate.now( ZoneId.of( "Europe/London" ) ) ;
 		List<Event> upcomingEventsHome = new ArrayList<Event>();
-		Iterable<Event> events = eventService.findAllByDateAfter(date);
+		Iterable<Event> events = eventService.findAll();
 		Integer MAX = 10000;
 		Integer counter = 0;
 		
 		for (Event event : events) {
 			if(counter < 3) {
-				upcomingEventsHome.add(event);
-				counter = counter + 1;
+				if( event.getDate().compareTo(LocalDate.now()) > 0) {
+					upcomingEventsHome.add(event);
+					counter = counter + 1;
+				}
+				else if((event.getDate().compareTo(LocalDate.now()) == 0) &&
+						event.getTime().compareTo(LocalTime.now()) >= 0) {
+						upcomingEventsHome.add(event);
+						counter = counter + 1;}
 			}
 		}
 		model.addAttribute("eventsHome", upcomingEventsHome);
@@ -61,7 +67,7 @@ public class HomeController{
 		}
 		counter = count.size()-1;
 		Integer maxi = 0;
-		Integer ind = 0;
+		Integer ind = -1;
 		Integer imaxi = 0;
 		for (int i = 0; i<3; i++) {
 			for (Integer value : count) {
@@ -71,7 +77,7 @@ public class HomeController{
 				}
 				ind = ind + 1;
 			}
-			if(counter >= i)
+			if(counter >= i && imaxi>-1)
 				maxVenues.add(venuesCopy.get(imaxi));
 			count.set(imaxi, -1);
 			ind = 0;
