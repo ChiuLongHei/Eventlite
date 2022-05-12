@@ -106,6 +106,23 @@ public class EventsController {
 		return "events/index";
 	}
 	
+	@GetMapping(value = "/event_update")
+	public String update(@ModelAttribute Event event, Model model) {
+		model.addAttribute("venues", venueService.findAll());
+		
+		return "events/event_update";
+		
+	}
+	
+	@RequestMapping(value = "/event_update", method = RequestMethod.POST)
+	public String update(@ModelAttribute Event event) {
+		eventService.update(event);
+		return "events/event_update";
+		}
+
+
+
+	
 	@GetMapping(value = "/event_create")
 	public String createNewEvent(Model model) {
 	
