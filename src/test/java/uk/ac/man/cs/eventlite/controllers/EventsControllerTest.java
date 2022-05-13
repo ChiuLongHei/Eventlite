@@ -3,14 +3,20 @@ package uk.ac.man.cs.eventlite.controllers;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.handler;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collections;
 
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -19,6 +25,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -144,5 +151,25 @@ public class EventsControllerTest {
 		
 		verify(eventService).searchBefore(LocalDate.now(), testKeyword);
 		
+	}
+	
+	
+	@Test
+	@WithMockUser(username="Admin", roles= {"ADMINISTRATOR"})
+	public void postEventCreate() throws Exception {
+		
+		when(eventService.findAll()).thenReturn(Collections.<Event>emptyList());
+		
+		mvc.perform(post("/events/event_create").with(csrf())
+	            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+	            .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
+	                    new BasicNameValuePair("name", "Event1"),
+	                    new BasicNameValuePair("time", "12:30"),
+	                    new BasicNameValuePair("date", "2025-06-15"),
+	                    new BasicNameValuePair("description", "onoijpij  oppoj")
+	            )))))
+				.andExpect(view().name("events/event_create"))
+				.andExpect(status().isOk())
+				.andExpect(handler().methodName("createNewEvent"));
 	}
 }
