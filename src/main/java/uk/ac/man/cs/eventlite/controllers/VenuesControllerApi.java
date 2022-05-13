@@ -76,6 +76,25 @@ public class VenuesControllerApi {
 
 		return venueAssembler.toModel(venue);
 	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteVenue(@PathVariable("id") long id) {
+		if (!venueService.existsById(id)) {
+			throw new VenueNotFoundException(id);
+		}
+
+		venueService.deleteById(id);
+
+		return ResponseEntity.noContent().build();
+	}
+
+	@DeleteMapping
+	public ResponseEntity<?> deleteAllVenues() {
+		venueService.deleteAll();
+
+		return ResponseEntity.noContent().build();
+	}
+	
 
 	@GetMapping
 	public CollectionModel<EntityModel<Venue>> getAllVenues() {

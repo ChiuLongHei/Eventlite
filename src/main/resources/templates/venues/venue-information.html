@@ -70,6 +70,14 @@
 	  	Back
 	  </button>
 	</form>
+	
+	<br>
+	<form th:action="${(#mvc.url('VC#deleteVenue').arg(0, venue.id)).build()}" th:method="delete" >
+    <button type="submit" class="btn btn-danger btn-sm" sec:authorize="isAuthenticated()">Delete</button>
+  	
+  </form>
+	
+	
     </div>
   	<dl>
   		<dd th:text="'Venue ' + ${venue.name}">Venue name</dd>

@@ -141,4 +141,9 @@ public class Venue {
 		    System.out.println("got interrupted!");
 		}
 	}
+
+	public boolean isPresent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

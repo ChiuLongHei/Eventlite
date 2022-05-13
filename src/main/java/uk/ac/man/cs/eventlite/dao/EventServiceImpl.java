@@ -113,7 +113,7 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public void deleteAllById(Iterable<Long> ids) {
+	public void deleteAllById(Iterable<Long> ids){
 		eventRepository.deleteAllById(ids);
 	}
 

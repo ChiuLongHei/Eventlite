@@ -22,4 +22,17 @@ public interface VenueService {
 	
 	public Venue update(Venue venue);
 	
+	public void delete(Venue venue);
+
+	public void deleteById(long id);
+
+	public void deleteAll();
+
+	public void deleteAll(Iterable<Venue> venues);
+
+	public void deleteAllById(Iterable<Long> ids);
+	
+	public boolean existsById(long id);
+
+	
 }

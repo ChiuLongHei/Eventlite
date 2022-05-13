@@ -61,10 +61,45 @@ public class VenueServiceImpl implements VenueService {
 		
 	}
 	
+	/*
 	public void deleteAll() {
 		venueRepository.deleteAll();
 		
 	}
+	*/
+	
+	@Override
+	public void delete(Venue venue) {
+		venueRepository.delete(venue);
+	}
+	
+	@Override
+	public void deleteById(long id) {
+		venueRepository.deleteById(id);
+	}
+
+	@Override
+	public void deleteAll() {
+		venueRepository.deleteAll();
+	}
+
+	@Override
+	public void deleteAll(Iterable<Venue> venues) {
+		venueRepository.deleteAll(venues);
+	}
+
+	@Override
+	public void deleteAllById(Iterable<Long> ids) {
+		venueRepository.deleteAllById(ids);
+	}
+
+	@Override
+	public boolean existsById(long id) {
+		return venueRepository.existsById(id);
+	}
+
+	
+	
 	
 	@Override
 	public Optional<Venue> findById(long id){
