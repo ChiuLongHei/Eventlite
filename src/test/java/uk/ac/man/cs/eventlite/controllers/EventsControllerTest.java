@@ -172,4 +172,19 @@ public class EventsControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(handler().methodName("createNewEvent"));
 	}
+	
+	@Test
+	@WithMockUser(username="Admin", roles= {"ADMINISTRATOR"})
+	public void postEventCreateEmpty() throws Exception {
+		
+		when(eventService.findAll()).thenReturn(Collections.<Event>emptyList());
+		
+		mvc.perform(post("/events/event_create").with(csrf())
+	            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+	            .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
+	            )))))
+				.andExpect(view().name("events/event_create"))
+				.andExpect(status().isOk())
+				.andExpect(handler().methodName("createNewEvent"));
+	}
 }
