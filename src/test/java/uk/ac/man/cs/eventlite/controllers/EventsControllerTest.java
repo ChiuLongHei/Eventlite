@@ -164,6 +164,7 @@ public class EventsControllerTest {
 	            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
 	            .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
 	                    new BasicNameValuePair("name", "Event1"),
+	                    new BasicNameValuePair("venue.id", "1"),
 	                    new BasicNameValuePair("time", "12:30"),
 	                    new BasicNameValuePair("date", "2025-06-15"),
 	                    new BasicNameValuePair("description", "onoijpij  oppoj")
@@ -171,6 +172,96 @@ public class EventsControllerTest {
 				.andExpect(view().name("events/event_create"))
 				.andExpect(status().isOk())
 				.andExpect(handler().methodName("createNewEvent"));
+	}
+	
+	@Test
+	@WithMockUser(username="Admin", roles= {"ADMINISTRATOR"})
+	public void postEventCreateInvalidName() throws Exception {
+		
+		when(eventService.findAll()).thenReturn(Collections.<Event>emptyList());
+		
+		mvc.perform(post("/events/event_create").with(csrf())
+	            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+	            .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
+	                    new BasicNameValuePair("name", "opejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejijk"),
+	                    new BasicNameValuePair("venue.id", "1"),
+	                    new BasicNameValuePair("time", "12:30"),
+	                    new BasicNameValuePair("date", "2025-06-15"),
+	                    new BasicNameValuePair("description", "onoijpij  oppoj")
+	            )))))
+				.andExpect(status().isOk());
+	}
+	
+	@Test
+	@WithMockUser(username="Admin", roles= {"ADMINISTRATOR"})
+	public void postEventCreateInvalidVenue() throws Exception {
+		
+		when(eventService.findAll()).thenReturn(Collections.<Event>emptyList());
+		
+		mvc.perform(post("/events/event_create").with(csrf())
+	            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+	            .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
+	            		new BasicNameValuePair("name", "Event1"),
+	                    new BasicNameValuePair("venue.id", "0"),
+	                    new BasicNameValuePair("time", "12:30"),
+	                    new BasicNameValuePair("date", "2025-06-15"),
+	                    new BasicNameValuePair("description", "onoijpij  oppoj")
+	            )))))
+				.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	@WithMockUser(username="Admin", roles= {"ADMINISTRATOR"})
+	public void postEventCreateInvalidTime() throws Exception {
+		
+		when(eventService.findAll()).thenReturn(Collections.<Event>emptyList());
+		
+		mvc.perform(post("/events/event_create").with(csrf())
+	            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+	            .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
+	            		new BasicNameValuePair("name", "Event1"),
+	                    new BasicNameValuePair("venue.id", "1"),
+	                    new BasicNameValuePair("date", "2025-06-15"),
+	                    new BasicNameValuePair("description", "onoijpij  oppoj"),
+	                    new BasicNameValuePair("time", "32:30")
+	            )))))
+				.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	@WithMockUser(username="Admin", roles= {"ADMINISTRATOR"})
+	public void postEventCreateInvalidDate() throws Exception {
+		
+		when(eventService.findAll()).thenReturn(Collections.<Event>emptyList());
+		
+		mvc.perform(post("/events/event_create").with(csrf())
+	            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+	            .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
+	            		new BasicNameValuePair("name", "Event1"),
+	                    new BasicNameValuePair("venue.id", "1"),
+	                    new BasicNameValuePair("time", "12:30"),
+	                    new BasicNameValuePair("description", "onoijpij  oppoj"),
+	                    new BasicNameValuePair("date", "2020-06-15")
+	            )))))
+				.andExpect(status().isOk());
+	}
+	
+	@Test
+	@WithMockUser(username="Admin", roles= {"ADMINISTRATOR"})
+	public void postEventCreateInvalidDescription() throws Exception {
+		
+		when(eventService.findAll()).thenReturn(Collections.<Event>emptyList());
+		
+		mvc.perform(post("/events/event_create").with(csrf())
+	            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+	            .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
+	            		new BasicNameValuePair("name", "Event1"),
+	                    new BasicNameValuePair("venue.id", "1"),
+	                    new BasicNameValuePair("time", "12:30"),
+	                    new BasicNameValuePair("date", "2025-06-15"),
+	                    new BasicNameValuePair("description", "opejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejijopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopej")
+	            )))))
+				.andExpect(status().isBadRequest());
 	}
 	
 	@Test
@@ -183,6 +274,7 @@ public class EventsControllerTest {
 	            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
 	            .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
 	                    new BasicNameValuePair("name", "Event1"),
+	                    new BasicNameValuePair("venue.id", "1"),
 	                    new BasicNameValuePair("time", "12:30"),
 	                    new BasicNameValuePair("date", "2025-06-15"),
 	                    new BasicNameValuePair("description", "onoijpij  oppoj")
@@ -200,6 +292,7 @@ public class EventsControllerTest {
 	            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
 	            .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
 	                    new BasicNameValuePair("name", "Event1"),
+	                    new BasicNameValuePair("venue.id", "1"),
 	                    new BasicNameValuePair("time", "12:30"),
 	                    new BasicNameValuePair("date", "2025-06-15"),
 	                    new BasicNameValuePair("description", "onoijpij  oppoj")
