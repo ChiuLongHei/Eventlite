@@ -49,12 +49,12 @@ public class EventServiceImpl implements EventService {
 	
 	@Override
 	public Iterable<Event> searchAfter(LocalDate date, String keyword){
-		return eventRepository.findAllByDateAfterAndNameContainingOrderByDateAscNameAsc(date, keyword);	
+		return eventRepository.findAllByDateAfterAndNameContainingIgnoreCaseOrderByDateAscNameAsc(date, keyword);	
 	}
 	
 	@Override
 	public Iterable<Event> searchBefore(LocalDate date, String keyword){
-		return eventRepository.findAllByDateBeforeAndNameContainingOrderByDateAscNameAsc(date, keyword);	
+		return eventRepository.findAllByDateBeforeAndNameContainingIgnoreCaseOrderByDateAscNameAsc(date, keyword);	
 	}
 	
 	public Iterable<Event> findAllByDateAfter(LocalDate date){
@@ -113,7 +113,7 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public void deleteAllbyId(Iterable<Long> ids) {
+	public void deleteAllById(Iterable<Long> ids) {
 		eventRepository.deleteAllById(ids);
 	}
 

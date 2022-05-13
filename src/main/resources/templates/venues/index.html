@@ -10,6 +10,12 @@
   <br>
     <h1>All Venues</h1>
     <br>
+        <form th:action="@{/homepage}">
+      <button type="submit" class="btn btn-succes btn-lg">
+	  	<span class="fas fa-reply"></span>
+	  	Back to homepage
+	  </button>
+	</form>
     <form style="display: inline" th:action="@{/venues/venues}" method="get">
 	  <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search by venue name" class="w-75 p-2">
 	  <button type="submit" class="btn btn-primary btn-lg" >
@@ -60,13 +66,6 @@
       </button>
     </form>
     <br>
-    
-    <form th:action="@{/homepage}">
-      <button type="submit" class="btn btn-succes btn-lg">
-	  	<span class="fas fa-reply"></span>
-	  	Back
-	  </button>
-	</form>
   </div>
   
 

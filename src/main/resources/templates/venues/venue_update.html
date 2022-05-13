@@ -12,7 +12,9 @@
 
 <tbody>
 	<div layout:fragment="content">
-		<th1>fill out the below form to update venue</th1>
+	  <br>
+   	<h1>Update event</h1>
+   	<br>
 			<form action="#" th:action="@{/venues/venue_update}" th:object="${venue}"  sec:authorize="isAuthenticated()" modelAttribute="venue" method="post">
 			  <div class="input-group mb-3">
 			  <div class="input-group-prepend">
