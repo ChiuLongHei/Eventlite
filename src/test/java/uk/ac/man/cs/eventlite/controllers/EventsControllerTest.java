@@ -174,6 +174,23 @@ public class EventsControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(username="Admin")
+	public void postEventCreateNoAuth() throws Exception {
+		
+		when(eventService.findAll()).thenReturn(Collections.<Event>emptyList());
+		
+		mvc.perform(post("/events/event_create").with(csrf())
+	            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+	            .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
+	                    new BasicNameValuePair("name", "Event1"),
+	                    new BasicNameValuePair("time", "12:30"),
+	                    new BasicNameValuePair("date", "2025-06-15"),
+	                    new BasicNameValuePair("description", "onoijpij  oppoj")
+	            )))))
+				.andExpect(status().isForbidden());;
+	}
+	
+	@Test
 	@WithMockUser(username="Admin", roles= {"ADMINISTRATOR"})
 	public void postEventCreateEmpty() throws Exception {
 		
