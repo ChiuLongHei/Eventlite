@@ -46,4 +46,18 @@ public class EventsControllerIntegrationTest extends AbstractTransactionalJUnit4
 					assertThat(result.getResponseBody(), containsString("99"));
 				});
 	}
+	
+	@Test
+	public void searchEventUsingKeyword() {
+		client.get().uri("/events/events?keyword=a").accept(MediaType.TEXT_HTML).exchange().expectStatus().isOk();
+	}
+	
+	@Test
+	public void searchEventNotFound() {
+		client.get().uri("/events/events?keyword=a").accept(MediaType.TEXT_HTML).exchange().expectStatus().isOk()
+		.expectHeader().contentTypeCompatibleWith(MediaType.TEXT_HTML).expectBody(String.class)
+		.consumeWith(result -> {
+			assertThat(result.getResponseBody(), containsString("Event not found"));
+		});
+	}
 }
