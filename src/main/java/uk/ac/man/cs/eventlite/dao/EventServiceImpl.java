@@ -109,7 +109,7 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public void deleteAllbyId(Iterable<Long> ids) {
+	public void deleteAllById(Iterable<Long> ids){
 		eventRepository.deleteAllById(ids);
 	}
 
@@ -118,5 +118,7 @@ public class EventServiceImpl implements EventService {
 		// TODO Auto-generated method stub
 		return eventRepository.existsById(id);
 	}
+
+	
 
 }
