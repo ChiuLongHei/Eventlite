@@ -151,9 +151,6 @@ public class EventsControllerApiTest {
 				.andExpect(jsonPath("$.postalCode", equalTo("M13 9PL")))
 				.andExpect(jsonPath("$.capacity", equalTo(200)))
 				.andExpect(jsonPath("$._links.self.href", endsWith("/api/venues/0")))
-				.andExpect(jsonPath("$._links.venue.href", endsWith("/api/venues/0")))
-				.andExpect(jsonPath("$._links.events.href", endsWith("/api/venues/0/events")))
-				.andExpect(jsonPath("$._links.next3events.href", endsWith("/api/venues/0/next3events")))
 				.andExpect(handler().methodName("getEventVenue"));
 		
 		verify(eventService).findById(0);
