@@ -76,7 +76,11 @@ public class EventServiceImpl implements EventService {
 		return eventRepository.findAllByVenue(venue);
 	}
 	
-
+    @Override
+	public Iterable<Event> findNext3EventsOfVenue(Venue venue, LocalDate date) {
+		Iterable<Event> listEvents = eventRepository.findTop3ByVenueAndDateAfterOrderByDateAscTimeAsc(venue, date);
+		return listEvents;
+	}
 	
 	@Override
 	public Event update(Event event) {
@@ -109,7 +113,7 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public void deleteAllById(Iterable<Long> ids) {
+	public void deleteAllbyId(Iterable<Long> ids) {
 		eventRepository.deleteAllById(ids);
 	}
 

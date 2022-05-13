@@ -28,6 +28,8 @@ public interface EventService {
 	public Iterable<Event> findAllByVenue(Venue venue);
 
 	
+	public Iterable<Event> findNext3EventsOfVenue(Venue venue, LocalDate date);
+	
 	public Optional<Event> findById(long id);
 
 	public void delete(Event event);
