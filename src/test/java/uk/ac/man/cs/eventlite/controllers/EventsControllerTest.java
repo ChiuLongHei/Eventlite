@@ -207,7 +207,7 @@ public class EventsControllerTest {
 	                    new BasicNameValuePair("date", "2025-06-15"),
 	                    new BasicNameValuePair("description", "onoijpij  oppoj")
 	            )))))
-				.andExpect(status().isBadRequest());
+				.andExpect(status().isOk());
 	}
 	
 	@Test
@@ -261,7 +261,7 @@ public class EventsControllerTest {
 	                    new BasicNameValuePair("date", "2025-06-15"),
 	                    new BasicNameValuePair("description", "opejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejijopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopejfpiejfopej")
 	            )))))
-				.andExpect(status().isBadRequest());
+				.andExpect(status().isOk());
 	}
 	
 	@Test
