@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.time.LocalDate;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ import uk.ac.man.cs.eventlite.entities.Event;
 import uk.ac.man.cs.eventlite.entities.Venue;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(EventsController.class)
+@WebMvcTest(VenuesController.class)
 @Import(Security.class)
 public class VenuesControllerTest {
 
@@ -65,4 +66,32 @@ public class VenuesControllerTest {
 				.andExpect(view().name("venues/not_found")).andExpect(handler().methodName("getVenue"));
 	}
 	*/
+	
+	@Test
+	public void searchVenueNotFound() throws Exception{
+		String testKeyword = new String("zzzzz");
+
+		when(venueService.searchVenues(testKeyword)).thenReturn(Collections.<Venue> emptyList());
+		
+		mvc.perform(get("/venues/venues?keyword=zzzzz").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
+		.andExpect(view().name("venues/not_found")).andExpect(handler().methodName("search"));
+		
+		verify(venueService).searchVenues(testKeyword);
+	}
+	
+	@Test
+	public void searchVenues() throws Exception{
+		when(event.getDate()).thenReturn(LocalDate.now().plusDays(1));
+		String testKeyword = new String("Venue");
+		when(event.getVenue()).thenReturn(venue);
+		when(venueService.searchVenues(testKeyword)).thenReturn(Collections.<Venue>singletonList(venue));
+		
+		mvc.perform(get("/venues/venues?keyword=Venue").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
+		.andExpect(view().name("venues/index")).andExpect(handler().methodName("search"));
+		
+		verify(venueService).searchVenues(testKeyword);
+		
+	}
+	
+
 }

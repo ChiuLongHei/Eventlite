@@ -118,7 +118,15 @@ public class VenuesController {
 
 	@GetMapping("/venues")
 	public String search(Model model, String keyword){
-		model.addAttribute("venues", venueService.searchVenues(keyword));
-		return "venues/index";
+		Iterable<Venue> venues = venueService.searchVenues(keyword);
+		int counter= 0;
+		for (Venue i: venues) {
+			counter++;
+		}
+		if (counter != 0) {
+			model.addAttribute("venues", venues);
+			return "venues/index";
+		}
+		return "venues/not_found";
 	}
 }

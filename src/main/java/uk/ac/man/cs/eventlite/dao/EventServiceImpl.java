@@ -58,11 +58,11 @@ public class EventServiceImpl implements EventService {
 	}
 	
 	public Iterable<Event> findAllByDateAfter(LocalDate date){
-		return eventRepository.findAllByDateAfter(date);
+		return eventRepository.findAllByDateAfterOrderByDateAscNameAsc(date);
 	}
 	
 	public Iterable<Event> findAllByDateBefore(LocalDate date){
-		return eventRepository.findAllByDateBefore(date);
+		return eventRepository.findAllByDateBeforeOrderByDateAscNameAsc(date);
 	}
 	
 

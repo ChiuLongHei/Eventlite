@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.time.LocalDate;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
@@ -75,5 +76,73 @@ public class EventsControllerTest {
 	public void getEventNotFound() throws Exception {
 		mvc.perform(get("/events/99").accept(MediaType.TEXT_HTML)).andExpect(status().isNotFound())
 				.andExpect(view().name("events/not_found")).andExpect(handler().methodName("getEvent"));
+	}
+	
+	@Test
+	public void getUpcomingEvents() throws Exception {
+		when(event.getDate()).thenReturn(LocalDate.now().plusDays(1));
+		when(event.getVenue()).thenReturn(venue);
+		when(eventService.findAllByDateAfter(LocalDate.now())).thenReturn(Collections.<Event>singletonList(event));
+		
+		mvc.perform(get("/events").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
+		.andExpect(view().name("events/index")).andExpect(handler().methodName("getAllEvents"));
+		
+		verify(eventService).findAllByDateAfter(LocalDate.now());
+		
+	}
+	
+	@Test
+	public void getPreviousEvents() throws Exception {
+		when(event.getDate()).thenReturn(LocalDate.now().minusDays(1));
+		when(event.getVenue()).thenReturn(venue);
+		when(eventService.findAllByDateBefore(LocalDate.now())).thenReturn(Collections.<Event>singletonList(event));
+		
+		mvc.perform(get("/events").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
+		.andExpect(view().name("events/index")).andExpect(handler().methodName("getAllEvents"));
+		
+		verify(eventService).findAllByDateBefore(LocalDate.now());
+		
+	}
+	
+	@Test
+	public void searchEventNotFound() throws Exception{
+		String testKeyword = new String("zzzzz");
+		when(eventService.searchBefore(LocalDate.now(), testKeyword)).thenReturn(Collections.<Event> emptyList());
+		when(eventService.searchAfter(LocalDate.now(), testKeyword)).thenReturn(Collections.<Event> emptyList());
+		
+		mvc.perform(get("/events/events?keyword=zzzzz").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
+		.andExpect(view().name("events/not_found")).andExpect(handler().methodName("search"));
+		
+		verify(eventService).searchBefore(LocalDate.now(), testKeyword);
+		verify(eventService).searchAfter(LocalDate.now(), testKeyword);
+		
+	}
+	
+	@Test
+	public void searchUpcomingEvent() throws Exception{
+		when(event.getDate()).thenReturn(LocalDate.now().plusDays(1));
+		String testKeyword = new String("Event");
+		when(event.getVenue()).thenReturn(venue);
+		when(eventService.searchAfter(LocalDate.now(), testKeyword)).thenReturn(Collections.<Event>singletonList(event));
+		
+		mvc.perform(get("/events/events?keyword=Event").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
+		.andExpect(view().name("events/index")).andExpect(handler().methodName("search"));
+		
+		verify(eventService).searchAfter(LocalDate.now(), testKeyword);
+		
+	}
+	
+	@Test
+	public void searchPreviousEvent() throws Exception{
+		when(event.getDate()).thenReturn(LocalDate.now().minusDays(1));
+		String testKeyword = new String("Event");
+		when(event.getVenue()).thenReturn(venue);
+		when(eventService.searchBefore(LocalDate.now(), testKeyword)).thenReturn(Collections.<Event>singletonList(event));
+		
+		mvc.perform(get("/events/events?keyword=Event").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
+		.andExpect(view().name("events/index")).andExpect(handler().methodName("search"));
+		
+		verify(eventService).searchBefore(LocalDate.now(), testKeyword);
+		
 	}
 }

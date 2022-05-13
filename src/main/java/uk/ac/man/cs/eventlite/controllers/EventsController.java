@@ -181,9 +181,21 @@ public class EventsController {
 		if(keyword == null || keyword.isEmpty())
 			return "redirect:/events";
 		LocalDate date = LocalDate.now( ZoneId.of( "Europe/Paris" ) ) ;
-		model.addAttribute("upcommingEvents", eventService.searchAfter(date, keyword));
-		model.addAttribute("previousEvents", eventService.searchBefore(date, keyword));
-		return "events/index";
+		Iterable<Event> upcomingEvents = eventService.searchAfter(date, keyword);
+		Iterable<Event> previousEvents = eventService.searchBefore(date, keyword);
+		int counter= 0;
+		for (Event i: upcomingEvents) {
+			counter++;
+		}
+		for (Event i: previousEvents) {
+			counter++;
+		}
+		if (counter != 0){
+			model.addAttribute("upcommingEvents", upcomingEvents);
+			model.addAttribute("previousEvents", previousEvents);
+			return "events/index";
+		}
+		return "events/not_found";
 	}
 	
 	public Twitter TwitterService() {

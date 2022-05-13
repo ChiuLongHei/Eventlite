@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.handler;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -40,6 +41,9 @@ public class EventsControllerApiTest {
 	
 	@Mock
 	private Venue venue;
+	
+	@Mock
+	private Event event;
 	
 	@Autowired
 	private MockMvc mvc;
@@ -154,5 +158,40 @@ public class EventsControllerApiTest {
 		
 		verify(eventService).findById(0);
 	}
+	
+//	@Test
+//	public void searchUpcomingEvent() throws Exception{
+//		Venue v = new Venue();
+//		v.setId(0);
+//		v.setName("Kilburn Building");
+//		v.setAddress("Kilburn Building University of Manchester, Oxford Rd, Manchester");
+//		v.setPostalCode("M13 9PL");
+//		v.setCapacity(200);
+//		
+//		Event e = new Event();
+//		LocalDate d = LocalDate.now().plusDays(1);
+//		LocalTime t = LocalTime.now();
+//		
+//		e.setId(0);
+//		e.setName("Event");
+//		e.setDescription("Description");
+//		e.setDate(d);
+//		e.setTime(t);
+//		e.setVenue(v);
+//		
+//		String testKeyword = new String("Event");
+//		
+//		when(eventService.searchAfter(LocalDate.now(), testKeyword)).thenReturn(Collections.<Event>singletonList(e));
+//		
+//		mvc.perform(get("/events/events?keyword=Event").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
+//		.andExpect(view().name("events/index"))
+//		.andExpect(handler().methodName("search"))
+//		.andExpect(jsonPath("$.name", equalTo("Event")))
+//		.andExpect(jsonPath("$.descritpion", equalTo("Description")))
+//		.andExpect(jsonPath("$._links.self.href", endsWith("/api/events")));
+//		
+//		verify(eventService).searchAfter(LocalDate.now(), testKeyword);
+//		
+//	}
 	
 }
