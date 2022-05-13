@@ -57,13 +57,12 @@
         </tr>
       </tbody>	
       </table>
-      <form th:action="@{/homepage}">
-      <button type="submit" class="btn btn-success btn-lg">
-      	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-      	Home
-      </button>
-    </form>
-    </form>
+    <br>
+        </form>
+    	<form th:action="${(#mvc.url('VC#deleteVenue').arg(0, venue.id)).build()}" th:method="delete" >
+    <button type="submit" class="btn btn-danger btn-sm" sec:authorize="isAuthenticated()">Delete</button>
+  	
+  </form>
 	<form th:action="@{/venues}">
       <button type="submit" class="btn btn-succes btn-lg">
 	  	<span class="fas fa-reply"></span>
@@ -72,11 +71,6 @@
 	</form>
 	
 	<br>
-	<form th:action="${(#mvc.url('VC#deleteVenue').arg(0, venue.id)).build()}" th:method="delete" >
-    <button type="submit" class="btn btn-danger btn-sm" sec:authorize="isAuthenticated()">Delete</button>
-  	
-  </form>
-	
 	
     </div>
   	<dl>

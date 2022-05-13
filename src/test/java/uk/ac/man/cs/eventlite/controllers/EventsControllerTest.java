@@ -318,7 +318,7 @@ public class EventsControllerTest {
 	@Test
 	@WithMockUser(username="Admin", roles= {"ADMINISTRATOR"})
 
-	public void getVenueUpdate() throws Exception {
+	public void getEventUpdate() throws Exception {
 		
 		when(eventService.findAll()).thenReturn(Collections.<Event>emptyList());
 		
