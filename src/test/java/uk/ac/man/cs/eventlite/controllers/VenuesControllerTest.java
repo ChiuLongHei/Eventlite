@@ -161,6 +161,22 @@ public class VenuesControllerTest {
 	
 	@Test
 	@WithMockUser(username="Admin", roles= {"ADMINISTRATOR"})
+	public void postVenueCreateEmpty() throws Exception {
+		
+		when(venueService.findAll()).thenReturn(Collections.<Venue>emptyList());
+		
+		mvc.perform(post("/venues/venue_create").with(csrf())
+	            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+	            .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
+	                    
+	            )))))
+				.andExpect(view().name("venues/venue_create"))
+				.andExpect(status().isOk())
+				.andExpect(handler().methodName("createNewVenue"));
+	}
+	
+	@Test
+	@WithMockUser(username="Admin", roles= {"ADMINISTRATOR"})
 	public void getVenueUpdate() throws Exception {
 		
 		when(venueService.findAll()).thenReturn(Collections.<Venue>emptyList());
