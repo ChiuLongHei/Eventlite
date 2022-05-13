@@ -314,4 +314,35 @@ public class EventsControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(handler().methodName("createNewEvent"));
 	}
+	
+	@Test
+	@WithMockUser(username="Admin", roles= {"ADMINISTRATOR"})
+
+	public void getVenueUpdate() throws Exception {
+		
+		when(eventService.findAll()).thenReturn(Collections.<Event>emptyList());
+		
+		mvc.perform(get("/events/event_update").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
+				.andExpect(view().name("events/event_update")).andExpect(handler().methodName("update"));
+	}
+	
+	@Test
+	@WithMockUser(username="Admin", roles= {"ADMINISTRATOR"})
+	public void postEventUpdate() throws Exception {
+		
+		mvc.perform(post("/events/event_update").with(csrf())
+	            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+	            .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
+	                    new BasicNameValuePair("name", "Event1"),
+	                    new BasicNameValuePair("venue.id", "1"),
+	                    new BasicNameValuePair("time", "12:30"),
+	                    new BasicNameValuePair("date", "2025-06-15"),
+	                    new BasicNameValuePair("description", "onoijpij  oppoj")
+	            )))))
+				.andExpect(view().name("events/event_update"))
+				.andExpect(status().isOk())
+				.andExpect(handler().methodName("update"));
+	}
+
+
 }
