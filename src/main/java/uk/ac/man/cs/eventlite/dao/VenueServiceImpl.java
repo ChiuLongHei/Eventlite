@@ -73,7 +73,7 @@ public class VenueServiceImpl implements VenueService {
 
 	@Override
 	public Iterable<Venue> searchVenues(String keyword){
-		return venueRepository.findAllByNameContainingOrderByNameAsc(keyword);	
+		return venueRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(keyword);	
 	}
 	
 	@Override

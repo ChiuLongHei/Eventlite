@@ -8,5 +8,5 @@ import uk.ac.man.cs.eventlite.entities.Venue;
 public interface venueRepository extends CrudRepository<Venue, Long> {
 	public Iterable<Venue> findAll(Sort sort);
 	
-	public Iterable<Venue> findAllByNameContainingOrderByNameAsc(String keyword);
+	public Iterable<Venue> findAllByNameContainingIgnoreCaseOrderByNameAsc(String keyword);
 }

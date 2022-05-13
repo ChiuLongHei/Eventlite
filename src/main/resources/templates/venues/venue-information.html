@@ -7,7 +7,6 @@
 </head>
 <body>
   <div layout:fragment="content">
-<<<<<<< HEAD
   <br>
   <h1>Venue Information</h1>
   <br>
@@ -65,14 +64,13 @@
       </button>
     </form>
     </form>
-	<form th:action="@{/homepage}">
+	<form th:action="@{/venues}">
       <button type="submit" class="btn btn-succes btn-lg">
 	  	<span class="fas fa-reply"></span>
 	  	Back
 	  </button>
 	</form>
     </div>
-=======
   	<dl>
   		<dd th:text="'Venue ' + ${venue.name}">Venue name</dd>
   		<dd th:text="${venue.address}">Venue address</dd>
